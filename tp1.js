@@ -272,7 +272,6 @@ var dessinerMurV = function (murV, pas, nx, ny) {
     mv(x, y); // positioner le crayon au haut du mur
     pd();
     mv(x, y - pas); // dessiner le mur vers le bas
-    // pause(.25);
 };
 // Tests unitaires pour la fonction dessinerMurV
 var testDessinerMurV = function () {
@@ -474,7 +473,6 @@ var testObtenirNouvFront = function () {
 };
 
 var noMurN = function (x, y, nx) {
-    // print("noMurN avec (x, y, nx) = (" + x + "," + y + "," + nx + ")");
     return (x + y * nx);
 };
 var testnoMurN = function () {
@@ -491,7 +489,6 @@ var testnoMurN = function () {
 };
 
 var noMurS = function (x, y, nx) {
-    // print("noMurS avec (x, y, nx) = (" + x + "," + y + "," + nx + ")");
     return (x + (y + 1) * nx);
 };
 var testnoMurS = function () {
@@ -508,7 +505,6 @@ var testnoMurS = function () {
 };
 
 var noMurE = function (x, y, nx) {
-    // print("noMurE avec (x, y, nx) = (" + x + "," + y + "," + nx + ")");
     return (1 + x + y * (nx + 1));
 };
 var testnoMurE = function () {
@@ -525,7 +521,6 @@ var testnoMurE = function () {
 };
 
 var noMurO = function (x, y, nx) {
-    // print("noMurO avec (x, y, nx) = (" + x + "," + y + "," + nx + ")");
     return (x + y * (nx + 1));
 };
 var testnoMurO = function () {
@@ -546,22 +541,16 @@ var obtenirDirectionNormalisee = function (direction) {
 };
 
 var murDevantExiste = function (position, direction, nx, murs) {
-    // print("murDevantExiste avec (x, y, nx, direction) = (" + x + "," + y + "," + nx + "," + direction + ")");
     var noMur = [noMurS, noMurE, noMurN, noMurO];
     var idx = obtenirDirectionNormalisee(direction);
     var mursContient = idx % 2 == 0 ? murs.h : murs.v; // si l'index est pair c'est un mur horizontal sinon vertical
-    //print("direction=" + direction + ", idx=" + idx);
-    //print("Le no du mur devant nous lorsqu'on est dans la cellule (" + position.x + "," + position.y + ") et dans la direction " + idx + " est " + noMur[idx](position.x, position.y, nx) + "; mur présnet=" + contient(mursContient, noMur[idx](position.x, position.y, nx)));
     return contient(mursContient, noMur[idx](position.x, position.y, nx));
 };
 
 var murDroitExiste = function (position, direction, nx, murs) {
-    // print("murDevantExiste avec (x, y, nx, direction) = (" + x + "," + y + "," + nx + "," + direction + ")");
     var noMur = [noMurO, noMurS, noMurE, noMurN];
     var idx = obtenirDirectionNormalisee(direction);
     var mursContient = idx % 2 == 0 ? murs.v : murs.h; // si l'index est pair c'est un mur vertical sinon horizontal
-    //print("direction=" + direction + ", idx=" + idx);
-    //print("Le no du mur sur notre droite lorsqu'on est dans la cellule (" + position.x + "," + position.y + ") et dans la direction " + idx + " est " + noMur[idx](position.x, position.y, nx) + "; mur présnet=" + contient(mursContient, noMur[idx](position.x, position.y, nx)));
     return contient(mursContient, noMur[idx](position.x, position.y, nx));
 };
 
@@ -591,7 +580,6 @@ var avancerDevant = function (position, direction, distance, pas) {
         default: // 3 - ouest
             nouvPosition.x--;
     }
-    //print("avanceDevant: position=(" + position.x + "," + position.y + "), direction=" + direction + ", directionnNorm=" + obtenirDirectionNormalisee(direction) + ",nouvPosition=(" +  + nouvPosition.x + "," + nouvPosition.y + ")");
     return nouvPosition; // on retourne la nouvelle position
 };
 
