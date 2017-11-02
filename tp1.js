@@ -32,8 +32,7 @@ var testIota = function () {
 // "x" est le nombre à rechercher dans le tableau
 var contientIndex = function (tab, x) {
     // parcours le tableau jusqu'à temps qu'on arrive à la fin ou bien qu'on trouve le nombre
-    for (var i = 0; i < tab.length && tab[i] != x; i++) {}
-    return (i < tab.length ? i : -1); // retourne l'index du nombre si on l'a trouvé sinon retourne -1 pour indiquer qu'il n'a pas été trouvé
+    return tab.indexOf(x);
 };
 // Tests unitaires pour la fonction contient
 var testContientIndex = function () {
