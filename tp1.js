@@ -29,9 +29,8 @@ var testIota = function () {
 // contenu dans le tableau tab sinon elle retourne -1 pour indiquer que x n'est pas dans
 // le tableau
 // "tab" est un tableau de nombres
-// "x" est le nombre à rechercher dans le tableau
+// "x" est l'élément dont la position est cherchée dans le tableau
 var contientIndex = function (tab, x) {
-    // parcours le tableau jusqu'à temps qu'on arrive à la fin ou bien qu'on trouve le nombre
     return tab.indexOf(x);
 };
 // Tests unitaires pour la fonction contient
@@ -48,9 +47,8 @@ var testContientIndex = function () {
 // Cette fonction prend 2 paramètres (tab et x) et retourne true si x est
 // contenu dans le tableau tab sinon elle retourne false
 // "tab" est un tableau de nombres
-// "x" est le nombre à rechercher dans le tableau
+// "x" est l'élément cherchée dans le tableau
 var contient = function (tab, x) {
-    // retourne true si x est dans le tableau (i.e. si contientIndex retounre une valeur qui n'est pas -1)
     return (contientIndex(tab, x) != -1); // i < length => on a trouvé le nombre, donc on retourne true sinon false
 };
 // Tests unitaires pour la fonction contient
@@ -74,8 +72,6 @@ var ajouter = function (tab, x) {
         nouvTab.push(x);
     }
     return nouvTab; // on retourne le nouveau tableau
-// TODO: voir si ceci fonctionnerait mais je ne suis pas convaincu que c'est plus clair
-// return tab.concat(!contient(tab, x) ? [x] : []);
 };
 // Tests unitaires pour la fonction ajouter
 var testAjouter = function () {
@@ -92,8 +88,8 @@ var testAjouter = function () {
 // avec le même contenu que tab sauf que x est retiré du tableau s'il s'y trouvait
 // "tab" est un tableau de nombres
 // "x" est le nombre à retirer
-// NB: tab est un ensemble au sens mathématique du terme, c'est à dire une collection de
-//     nombres sans duplication
+// NB: tab est un ensemble au sens mathématique du terme, c'est à dire une collection
+// d'éléments sans duplication
 var retirer = function (tab, x) {
     var index = contientIndex(tab, x); // Obtient l'index du nombre dans le tableau (-1 s'il n'y est pas)
     var nouvTab;
@@ -122,7 +118,6 @@ var testRetirer = function () {
 // "x" est un nombre entier >= 0 et < nx
 // "y" est un nombre entier >= 0
 // "nx" est un mobre entier > 0
-//
 var xy2no = function (x, y, nx) {
     return (x + y * nx); // retourne le no de la cellule
 };
@@ -145,7 +140,6 @@ var testXy2no = function () {
 // selon la formule x = no % nx
 // "no" est le numéro de la cellule et est un nombre entier >= 0
 // "nx" est la largeur du labyrinthe et est un mobre entier > 0
-//
 var no2x = function (no, nx) {
     return (no % nx); // retourne la coordonnée x de la cellule
 };
@@ -169,7 +163,6 @@ var testNo2x = function () {
 // selon la formule x = Math.floor(no / nx)
 // "no" est le numéro de la cellule et est un nombre entier >= 0
 // "nx" est la largeur du labyrinthe et est un mobre entier > 0
-//
 var no2y = function (no, nx) {
     return Math.floor(no / nx); // retourne la coordonnée y de la cellule
 };
@@ -215,8 +208,6 @@ var voisins = function (x, y, nx, ny) {
 // Tests unitaires pour la fonction ajouter
 var testVoisins = function () {
     assert(voisins(7, 2, 8, 4) == "15,22,31");
-
-    // TODO: redo the same tests but with a 5x4 instead of a 8x4
 
     assert(voisins(0, 0, 8, 4) == "1,8");
     assert(voisins(0, 1, 8, 4) == "0,9,16");
