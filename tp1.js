@@ -13,8 +13,8 @@
 var iota = function (n) {
     var tab = new Array(n);
     // initialise les n éléments avec les valeurs 0, 1, ..., n-1
-    while (n-- > 0) { // while (n--) fonctionne aussi mais je ne sais pas si c'est une façon de faire qui est acceptable en JavaScript
-    tab[n] = n;
+    while (n-- > 0) {
+        tab[n] = n;
     }
     return tab;
 };
