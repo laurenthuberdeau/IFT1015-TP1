@@ -382,25 +382,13 @@ var retirerMur = function (murs, nouvCavite, caviteVoisine, nx) {
     var yCaviteVoisine = no2y(caviteVoisine, nx);
 
     if (xNouvCavite == xCaviteVoisine) { // elles sont une au dessus de l'autre, i.e. on doit retirer un mur horizontal
-        if (yCaviteVoisine > yNouvCavite) {
-
-        }
-        else {
-
-        }
         var murRetirer = xNouvCavite + (yNouvCavite + (yCaviteVoisine > yNouvCavite)) * nx; // calcul du numéro du mur horizontal entre les 2 cavités
         mursH = retirer(mursH, murRetirer); // retirer le mur horizontal
     }
     else { // elles sont une à côté de l'autre, i.e. on doit retirer un mur vertical
-        if (xCaviteVoisine > xNouvCavite) {
-
-        }
-        else {
-
-        }
-            var murRetirer = (xCaviteVoisine > xNouvCavite) + xNouvCavite + yNouvCavite * (nx + 1); // calcul du numéro du mur vertical entre les 2 cavités
-            mursV = retirer(mursV, murRetirer); // retirer le mur vertical
-        }
+        var murRetirer = (xCaviteVoisine > xNouvCavite) + xNouvCavite + yNouvCavite * (nx + 1); // calcul du numéro du mur vertical entre les 2 cavités
+        mursV = retirer(mursV, murRetirer); // retirer le mur vertical
+    }
     return {h: mursH, v: mursV}; // retourne un objet murs ayant la même structure mais dont le mur entre les 2 cavités a été retiré (si c'est un mur horizontal qui a été retiré alors l'objet pointe sur un nouveau tableau horizontal et sur le même tableau vertical (puisque celui n'est pas affecté par la fonction) et inversement si c'est un mur vertical qui a été retiré
 };
 // Tests unitaires pour la fonction retirerMur
