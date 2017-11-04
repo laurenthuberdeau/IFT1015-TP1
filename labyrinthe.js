@@ -419,7 +419,8 @@ var sortirLaby = function (nx, ny, pas, distance, murs, position, direction) {
         }
         else {
             position = avancerDevant(position, direction, distance, pas); // on avance à la cellule devant
-            if (position.x == nx - 1 && position.y == ny) { // fin de la boucle puisqu'on vient de sortir du labyrinthe
+            if (position.x == nx - 1 && position.y == ny) {
+                // fin de la boucle puisqu'on vient de sortir du labyrinthe
                 break;
             }
             if (direction != 0 && !murDroitExiste(position, direction, nx, murs)) { // si direction <> 0 et pas de mur à notre droite
@@ -640,27 +641,51 @@ var testerFonctions = function() {
 
     // Tests unitaires pour la fonction creerMurs
     var testCreerMurs = function () {
-        // TODO
+        assert(creerMurs(1, 5).h == "0,1,2,3,4,5");
+        assert(creerMurs(1, 5).v == "0,1,2,3,4,5,6,7,8,9");
+
+        assert(creerMurs(5, 1).h == "0,1,2,3,4,5,6,7,8,9");
+        assert(creerMurs(5, 1).v == "0,1,2,3,4,5");
+
+        assert(creerMurs(5, 3).h == "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19");
+        assert(creerMurs(5, 3).v == "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17");
+
+        assert(creerMurs(3, 3).h == "0,1,2,3,4,5,6,7,8,9,10,11");
+        assert(creerMurs(3, 3).v == "0,1,2,3,4,5,6,7,8,9,10,11");
     };
 
     // Tests unitaires pour la fonction creerCave
     var testCreerCave = function () {
-        // TODO
+        // Impossible de tester en comparant des valeurs, car aléatoire.
+        // On peut toujours tester ses propriétés, mais si on teste une propriété
+        // dépendante de la valeur aléatoire, il faut répéter plusieurs fois le
+        // test - ce qu'on ne fera pas.
+        // On test que le tableau retourné contient bien 1 élément
+        assert(creerCave(1, 5).length == 1);
     };
 
     // Tests unitaires pour la fonction creerFront
     var testCreerFront = function () {
-        // TODO
+        assert(creerFront(0, 5, 5) == "1,5");
+        assert(creerFront(4, 5, 5) == "3,9");
+        assert(creerFront(5, 5, 5) == "0,6,10");
+        assert(creerFront(24, 5, 5) == "19,23");
+
+        assert(creerFront(0, 6, 3) == "1,6");
+        assert(creerFront(5, 6, 3) == "4,11");
+        assert(creerFront(6, 6, 3) == "0,7,12");
+        assert(creerFront(8, 6, 3) == "2,7,9,14");
+        assert(creerFront(17, 6, 3) == "11,16");
     };
 
     // Tests unitaires pour la fonction obtenirNouvCavite
     var testObtenirNouvCavite = function () {
-        // TODO
+        // Aléatoire, donc impossible à tester
     };
 
     // Tests unitaires pour la fonction retirerMursHorEntreeSortie
     var testRetirerMursHorEntreeSortie = function () {
-        // TODO
+
     };
 
     // Tests unitaires pour la fonction retirerMur
