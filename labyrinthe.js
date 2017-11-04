@@ -191,16 +191,16 @@ var testNo2y = function () {
 var voisins = function (x, y, nx, ny) {
     var tab = Array(0); // création d'un tableau vide auquel on va ajouter les cellules voisines
     var no = xy2no(x, y, nx); // calcul du numéro correspondant à la cellule (x, y)
-    if (y != 0) { // si la cellule (x, y) n'est pas sur la première ligne du tableau alors on ajoute la cellule en haut de celle-ci
+    if (y > 0) { // si la cellule (x, y) n'est pas sur la première ligne du tableau alors on ajoute la cellule en haut de celle-ci
         tab.push(no - nx);
     }
-    if (x != 0) { // si la cellule (x, y) n'est pas sur la première colonne du tableau alors on ajoute la cellule à gauche de celle-ci
+    if (x > 0) { // si la cellule (x, y) n'est pas sur la première colonne du tableau alors on ajoute la cellule à gauche de celle-ci
         tab.push(no - 1);
     }
-    if (x != nx - 1) { // si la cellule (x, y) n'est pas sur la dernière colonne du tableau alors on ajoute la cellule à droite de celle-ci
+    if (x + 1 < nx) { // si la cellule (x, y) n'est pas sur la dernière colonne du tableau alors on ajoute la cellule à droite de celle-ci
         tab.push(no + 1);
     }
-    if (y != ny - 1) { // si la cellule (x, y) n'est pas sur la dernière ligne du tableau alors on ajoute la cellule en bas de celle-ci
+    if (y + 1 < ny) { // si la cellule (x, y) n'est pas sur la dernière ligne du tableau alors on ajoute la cellule en bas de celle-ci
         tab.push(no + nx);
     }
     return tab; // on retourne le tableau des cellules voisines
