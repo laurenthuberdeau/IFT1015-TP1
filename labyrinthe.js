@@ -282,7 +282,6 @@ var dessinerMurH = function (murH, pas, nx, ny) {
     mv(x, y); // positioner le crayon à gauche du mur
     pd();
     mv(x + pas, y); // dessiner le mur vers le bas
-    // pause(.25);
 };
 // Tests unitaires pour la fonction dessinerMurH
 var testDessinerMurH = function () {
