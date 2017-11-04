@@ -7,6 +7,11 @@
 
 // TODO: Modifier les fonctions ASSERT sur les tableaux pour valider que le tableau passé en paramètre n'a pas été modifié par la fonction
 
+
+////////////////////////////////////////////////////////////////////////////////
+//  Fonctions du spec (Excluant laby et labySol)
+////////////////////////////////////////////////////////////////////////////////
+
 // Cette fonction prend 1 paramètre (n) et retourne un tableau de longueur n
 // contenant en ordre les valeurs entières entre 0 et n-1 inclusivement
 // "n" est un nombre entier >= 0
@@ -119,6 +124,16 @@ var voisins = function (x, y, nx, ny) {
     return tab; // on retourne le tableau des cellules voisines
 };
 
+
+////////////////////////////////////////////////////////////////////////////////
+//  Laby
+////////////////////////////////////////////////////////////////////////////////
+
+
+////////////////////////////////////////////////////////////////////////////////
+//  Laby - Dessin murs
+////////////////////////////////////////////////////////////////////////////////
+
 // Cette fonction prend 4 paramètres (murV, pas, nx et ny) et dessine un mur vertical de
 // longueur pas pixels et utilise murV, nx et ny pour positioner le mur
 // "murV" est le numéro du mur et est un nombre entier >= 0
@@ -162,6 +177,11 @@ var dessinerMurs = function (murs, pas, nx, ny) {
         dessinerMurH(murs.h[i], pas, nx, ny);
     }
 };
+
+
+////////////////////////////////////////////////////////////////////////////////
+//  Laby - Génération labyrinthe
+////////////////////////////////////////////////////////////////////////////////
 
 // Cette fonction prend 2 paramètres (nx et ny) et retourne un object contenant 2 tableaux (celui de l'ensemble des murs horizontaux
 // et celui de l'ensemble des murs verticaux)
@@ -270,6 +290,30 @@ var obtenirNouvFront = function (front, nouvCavite, voisinsFront) {
     }
     return nouvFront; //retourne un tableau des cellules de la nouvelle frontière
 };
+
+var genererLaby = function (nx, ny, pas) {
+    var murs = creerMurs(nx, ny); // créer l'objet contenant le tableau des murs horizontaux et le tableau des murs verticaux
+    var cave = creerCave(nx, ny); // créer le tableau contenant la cavité initiale choisie aléatoirement
+    var front = creerFront(cave[0], nx, ny); // créer le tableau contenant les cellules sur la frontière de la cavité initiale
+
+    // on boucle tant qu'il y a de cellules qui sont dans la frontière (i.e. tant que toutes les cellules ne sont pas dans la cavité)
+    while (front.length != 0) {
+        var nouvCavite = obtenirNouvCavite(front); // obtenir la nouvelle cellule cavité chosie aléatoirement parmis les cellules sur la frontière de la cavité
+        var voisins = obtenirVoisins(nouvCavite, nx, ny, cave); // obtenir l'objet contenant la cellule voisine déjà dans la cavité et le tableau des cellules qui devront être ajoutées à la frontière
+        murs = retirerMur(murs, nouvCavite, voisins.cavite, nx); // retire le mur entre les 2 cavités
+        cave = ajouterCavite(cave, nouvCavite); // ajouter la nouvelle cellule à la cavité
+        front = obtenirNouvFront(front, nouvCavite, voisins.front); // retirer la nouvelle cellule cavité de la frontière et y ajouter les nouvelles cellules voisines qui ne sont pas dans la cavité
+    }
+
+    murs = retirerMursHorEntreeSortie(murs); // retirer 2 murs horizontaux pour créer l'entrée et la sortie du labyrinthe
+
+    return murs; // on return l'objet murs puisqu'il sera utilisé par la fonction genererEtDessinerSol
+};
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Laby - Résolution labyrinthe
+////////////////////////////////////////////////////////////////////////////////
 
 var noMurN = function (x, y, nx) {
     return (x + y * nx);
@@ -393,25 +437,6 @@ var sortirLaby = function (nx, ny, pas, distance, murs, position, direction) {
     }
 };
 
-var genererLaby = function (nx, ny, pas) {
-
-    var murs = creerMurs(nx, ny); // créer l'objet contenant le tableau des murs horizontaux et le tableau des murs verticaux
-    var cave = creerCave(nx, ny); // créer le tableau contenant la cavité initiale choisie aléatoirement
-    var front = creerFront(cave[0], nx, ny); // créer le tableau contenant les cellules sur la frontière de la cavité initiale
-    // on boucle tant qu'il y a de cellules qui sont dans la frontière (i.e. tant que toutes les cellules ne sont pas dans la cavité)
-    while (front.length != 0) {
-        var nouvCavite = obtenirNouvCavite(front); // obtenir la nouvelle cellule cavité chosie aléatoirement parmis les cellules sur la frontière de la cavité
-        var voisins = obtenirVoisins(nouvCavite, nx, ny, cave); // obtenir l'objet contenant la cellule voisine déjà dans la cavité et le tableau des cellules qui devront être ajoutées à la frontière
-        murs = retirerMur(murs, nouvCavite, voisins.cavite, nx); // retire le mur entre les 2 cavités
-        cave = ajouterCavite(cave, nouvCavite); // ajouter la nouvelle cellule à la cavité
-        front = obtenirNouvFront(front, nouvCavite, voisins.front); // retirer la nouvelle cellule cavité de la frontière et y ajouter les nouvelles cellules voisines qui ne sont pas dans la cavité
-    }
-
-    murs = retirerMursHorEntreeSortie(murs); // retirer 2 murs horizontaux pour créer l'entrée et la sortie du labyrinthe
-
-    return murs; // on return l'objet murs puisqu'il sera utilisé par la fonction genererEtDessinerSol
-};
-
 var resoudreLaby = function (nx, ny, pas, mursLaby) {
 
     var distance = 1/4; // le tracer du labyrinthe sera à une distance de 1/4 de pas du mur
@@ -420,6 +445,11 @@ var resoudreLaby = function (nx, ny, pas, mursLaby) {
     sortirLaby(nx, ny, pas, distance, murs, gps.position, gps.direction); // on navigue le labyrinthe jusqu'à la sortie
 
 };
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Laby - Fonctions du spec (laby et bonus)
+////////////////////////////////////////////////////////////////////////////////
 
 // Cette fonction prend 3 paramètres (nx, ny et pas) et crée et dessine un labyrinthe
 // aléatoire (largeur=nx et hauteur=ny)
@@ -446,6 +476,7 @@ var labySol = function (nx, ny, pas) {
 ////////////////////////////////////////////////////////////////////////////////
 // Tests unitaires
 ////////////////////////////////////////////////////////////////////////////////
+
 var testerFonctions = function() {
 
     // Tests unitaires pour la fonction iota
