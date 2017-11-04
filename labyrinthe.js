@@ -393,7 +393,7 @@ var sortirLaby = function (nx, ny, pas, distance, murs, position, direction) {
     }
 };
 
-var genererEtDessinerLaby = function (nx, ny, pas) {
+var genererLaby = function (nx, ny, pas) {
 
     var murs = creerMurs(nx, ny); // créer l'objet contenant le tableau des murs horizontaux et le tableau des murs verticaux
     var cave = creerCave(nx, ny); // créer le tableau contenant la cavité initiale choisie aléatoirement
@@ -408,12 +408,11 @@ var genererEtDessinerLaby = function (nx, ny, pas) {
     }
 
     murs = retirerMursHorEntreeSortie(murs); // retirer 2 murs horizontaux pour créer l'entrée et la sortie du labyrinthe
-    dessinerMurs(murs, pas, nx, ny); // dessiner le labyrinthe
 
     return murs; // on return l'objet murs puisqu'il sera utilisé par la fonction genererEtDessinerSol
 };
 
-var genererEtDessinerSol = function (nx, ny, pas, mursLaby) {
+var resoudreLaby = function (nx, ny, pas, mursLaby) {
 
     var distance = 1/4; // le tracer du labyrinthe sera à une distance de 1/4 de pas du mur
     var murs = refermerEntreeLaby(mursLaby); // on recrée le mur horizontal 0 afin de fermer l'entrée du labyrinthe, ceci est pour s'assurer que l'algorithme de Pledge sorte bien par la sortie du labyrinthe
@@ -428,7 +427,8 @@ var genererEtDessinerSol = function (nx, ny, pas, mursLaby) {
 // "ny" est un nombre entier > 0 et représente la hauteur du labyrinthe
 // "pas" est un nombre entier > 0 et représente la largeur et la hauteur (en pixel) de chacune des cellules carées du labyrinthe
 var laby = function (nx, ny, pas) {
-    genererEtDessinerLaby(nx, ny, pas); // générer et dessiner le labyrinthe
+    var mursLaby = genererLaby(nx, ny, pas); // génère un labyrinthe
+    dessinerMurs(mursLaby, pas, nx, ny); // dessine le labyrinthe
 };
 
 // Cette fonction prend 3 paramètres (nx, ny et pas) et crée et dessine un labyrinthe
@@ -437,9 +437,9 @@ var laby = function (nx, ny, pas) {
 // "ny" est un nombre entier > 0 et représente la hauteur du labyrinthe
 // "pas" est un nombre entier > 0 et représente la largeur et la hauteur (en pixel) de chacune des cellules carées du labyrinthe
 var labySol = function (nx, ny, pas) {
-
-    genererEtDessinerSol(nx, ny, pas, genererEtDessinerLaby(nx, ny, pas)); // générer et dessiner le labyrinthe et la solution
-
+    var mursLaby = genererLaby(nx, ny, pas); // génère un labyrinthe
+    dessinerMurs(mursLaby, pas, nx, ny); // dessine le labyrinthe
+    resoudreLaby(nx, ny, pas, mursLaby); // Résoud et dessine le labyrinthe et la solution
 };
 
 
@@ -736,11 +736,11 @@ var testerFonctions = function() {
         // todo
     }
 
-    var testGenererEtDessinerLaby = function () {
+    var genererLaby = function () {
         // todo
     }
 
-    var testGenererEtDessinerSol = function () {
+    var resoudreLaby = function () {
         // todo
     }
 
