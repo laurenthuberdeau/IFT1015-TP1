@@ -702,47 +702,47 @@ var testerFonctions = function() {
 
     var testObtenirDirectionNormalisee = function () {
         // todo
-    }
+    };
 
     var testMurDevantExiste = function () {
         // todo
-    }
+    };
 
     var testMurDroitExiste = function () {
         // todo
-    }
+    };
 
     var testTournerGauche = function () {
         // todo
-    }
+    };
 
     var testTournerDroit = function () {
         // todo
-    }
+    };
 
     var testAvancerDevant = function () {
         // todo
-    }
+    };
 
     var testLongerMur = function () {
         // todo
-    }
+    };
 
     var testRefermerEntreeLaby = function () {
         // todo
-    }
+    };
 
     var testSortirLaby = function () {
         // todo
-    }
+    };
 
-    var genererLaby = function () {
+    var testGenererLaby = function () {
         // todo
-    }
+    };
 
-    var resoudreLaby = function () {
+    var testResoudreLaby = function () {
         // todo
-    }
+    };
 
     testIota();
     testContientIndex();
@@ -778,9 +778,9 @@ var testerFonctions = function() {
     testLongerMur();
     testRefermerEntreeLaby();
     testSortirLaby();
-    testGenererEtDessinerLaby();
-    testGenererEtDessinerSol();
-}
+    testGenererLaby();
+    testResoudreLaby();
+};
 
 testerFonctions();
 
