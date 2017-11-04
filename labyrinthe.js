@@ -33,7 +33,7 @@ var contientIndex = function (tab, x) {
 // "tab" est un tableau de nombres
 // "x" est l'élément cherchée dans le tableau
 var contient = function (tab, x) {
-    return (contientIndex(tab, x) != -1); // i < length => on a trouvé le nombre, donc on retourne true sinon false
+    return (contientIndex(tab, x) != -1); // i != -1 => on a trouvé le nombre, donc on retourne true sinon false
 };
 
 // Cette fonction prend 2 paramètres (tab et x) et retourne un nouveau tableau
@@ -71,7 +71,7 @@ var retirer = function (tab, x) {
 // selon la formule no = x + y * nx
 // "x" est un nombre entier >= 0 et < nx
 // "y" est un nombre entier >= 0
-// "nx" est un mobre entier > 0
+// "nx" est un nombre entier > 0
 var xy2no = function (x, y, nx) {
     return (x + y * nx); // retourne le no de la cellule
 };
@@ -80,7 +80,7 @@ var xy2no = function (x, y, nx) {
 // d'un tableau de longueur nx (la coordonnée en haut à gauche est (0,0))
 // selon la formule x = no % nx
 // "no" est le numéro de la cellule et est un nombre entier >= 0
-// "nx" est la largeur du labyrinthe et est un mobre entier > 0
+// "nx" est la largeur du labyrinthe et est un nombre entier > 0
 var no2x = function (no, nx) {
     return (no % nx); // retourne la coordonnée x de la cellule
 };
@@ -89,7 +89,7 @@ var no2x = function (no, nx) {
 // d'un tableau de longueur nx (la coordonnée en haut à gauche est (0,0))
 // selon la formule x = Math.floor(no / nx)
 // "no" est le numéro de la cellule et est un nombre entier >= 0
-// "nx" est la largeur du labyrinthe et est un mobre entier > 0
+// "nx" est la largeur du labyrinthe et est un nombre entier > 0
 var no2y = function (no, nx) {
     return Math.floor(no / nx); // retourne la coordonnée y de la cellule
 };
@@ -99,8 +99,8 @@ var no2y = function (no, nx) {
 // dimension nx par ny
 // "x" est un nombre entier >= 0 et < nx
 // "y" est un nombre entier >= 0 et < ny
-// "nx" est un mobre entier > 0
-// "ny" est un mobre entier > 0
+// "nx" est un nombre entier > 0
+// "ny" est un nombre entier > 0
 var voisins = function (x, y, nx, ny) {
     var tab = Array(0); // création d'un tableau vide auquel on va ajouter les cellules voisines
     var no = xy2no(x, y, nx); // calcul du numéro correspondant à la cellule (x, y)
@@ -123,8 +123,8 @@ var voisins = function (x, y, nx, ny) {
 // longueur pas pixels et utilise murV, nx et ny pour positioner le mur
 // "murV" est le numéro du mur et est un nombre entier >= 0
 // "pas" est la longueur du mur en pixels et est un nombre entier > 0
-// "nx" est la largeur du labyrinthe et est un mobre entier > 0
-// "ny" est la largeur du labyrinthe et est un mobre entier > 0
+// "nx" est la largeur du labyrinthe et est un nombre entier > 0
+// "ny" est la largeur du labyrinthe et est un nombre entier > 0
 var dessinerMurV = function (murV, pas, nx, ny) {
     var x = (murV % (nx + 1) - nx / 2) * pas; // coordonée x de l'extrémité supérieure du mur
     var y = (ny / 2 - Math.floor(murV / (nx + 1))) * pas; // coordonée y de l'extrémité supérieure du mur
@@ -138,8 +138,8 @@ var dessinerMurV = function (murV, pas, nx, ny) {
 // longueur pas pixels et utilise murH, nx et ny pour positioner le mur
 // "murH" est le numéro du mur et est un nombre entier >= 0
 // "pas" est la longueur du mur en pixels et est un nombre entier > 0
-// "nx" est la largeur du labyrinthe et est un mobre entier > 0
-// "ny" est la largeur du labyrinthe et est un mobre entier > 0
+// "nx" est la largeur du labyrinthe et est un nombre entier > 0
+// "ny" est la largeur du labyrinthe et est un nombre entier > 0
 var dessinerMurH = function (murH, pas, nx, ny) {
     var x = (murH % nx - nx / 2) * pas; // coordonée x de l'extrémité gauche du mur
     var y = (ny / 2 - Math.floor(murH / nx)) * pas; // coordonée x de l'extrémité gauche du mur
@@ -152,8 +152,8 @@ var dessinerMurH = function (murH, pas, nx, ny) {
 // Cette fonction prend 4 paramètres (murs, pas, nx et ny) et dessine tous les murs
 // "murs" est l'objet contenant 2 tableux (celui des murs horizontaux et celui des murs verticaux)
 // "pas" est la longueur du mur en pixels et est un nombre entier > 0
-// "nx" est la largeur du labyrinthe et est un mobre entier > 0
-// "ny" est la largeur du labyrinthe et est un mobre entier > 0
+// "nx" est la largeur du labyrinthe et est un nombre entier > 0
+// "ny" est la largeur du labyrinthe et est un nombre entier > 0
 var dessinerMurs = function (murs, pas, nx, ny) {
     for (var i = 0; i < murs.v.length; i++) { // dessiner les murs verticaux
         dessinerMurV(murs.v[i], pas, nx, ny);
@@ -165,23 +165,23 @@ var dessinerMurs = function (murs, pas, nx, ny) {
 
 // Cette fonction prend 2 paramètres (nx et ny) et retourne un object contenant 2 tableaux (celui de l'ensemble des murs horizontaux
 // et celui de l'ensemble des murs verticaux)
-// "nx" est la largeur du labyrinthe et est un mobre entier > 0
-// "ny" est la largeur du labyrinthe et est un mobre entier > 0
+// "nx" est la largeur du labyrinthe et est un nombre entier > 0
+// "ny" est la largeur du labyrinthe et est un nombre entier > 0
 var creerMurs = function (nx, ny) {
     return {h: iota(nx * (ny + 1)), v: iota(ny * (nx + 1))}; // retourne un tableau avec l'ensemble des murs horizontaux
 };
 
 // Cette fonction prend 2 paramètres (nx et ny) et retourne un tableau contenant la cavité initiale choisie aléatoirement
-// "nx" est la largeur du labyrinthe et est un mobre entier > 0
-// "ny" est la largeur du labyrinthe et est un mobre entier > 0
+// "nx" est la largeur du labyrinthe et est un nombre entier > 0
+// "ny" est la largeur du labyrinthe et est un nombre entier > 0
 var creerCave = function (nx, ny) {
     return [Math.floor(Math.random() * nx * ny)]; // retourne un tableau contenant la cellule cavité initiale choisie aléatoirement
 };
 
 // Cette fonction prend 3 paramètres (cavite, nx et ny) et retourne un tableau contenant les cellules sur la frontière de la cavité initiale
 // "cavite" est la cavité initiale et est un monbre entier entre 0 et nx * ny - 1
-// "nx" est la largeur du labyrinthe et est un mobre entier > 0
-// "ny" est la largeur du labyrinthe et est un mobre entier > 0
+// "nx" est la largeur du labyrinthe et est un nombre entier > 0
+// "ny" est la largeur du labyrinthe et est un nombre entier > 0
 var creerFront = function (cavite, nx, ny) {
     return voisins(no2x(cavite, nx), no2y(cavite, nx), nx, ny); // retourne un tableau contenant les cellules sur la frontière de la cavité initiale
 };
@@ -206,7 +206,7 @@ var retirerMursHorEntreeSortie = function (murs) {
 // "murs" est l'objet contenant 2 tableux (celui des murs horizontaux et celui des murs verticaux)
 // "nouvCavite" est la nouvelle cavité qui a été chosie pour être ajoutée à la cavité
 // "caviteVoisine" est une cellule voisine de la nouvelle cavité et qui est déjà dans la cavité
-// "nx" est la largeur du labyrinthe et est un mobre entier > 0
+// "nx" est la largeur du labyrinthe et est un nombre entier > 0
 var retirerMur = function (murs, nouvCavite, caviteVoisine, nx) {
     var mursH = murs.h; // pointe sur le même tableau que celui passé en paramètre
     var mursV = murs.v; // pointe sur le même tableau que celui passé en paramètre
@@ -231,8 +231,8 @@ var retirerMur = function (murs, nouvCavite, caviteVoisine, nx) {
 // Cette fonction prend 4 paramètres (nouvCavite, nx, ny et cave) et retourne un objet avec la cellule cavité voisine chosie aléatoirement parmis
 // les cellues cavités voisines et un tableau des cellules voisines qui ne sont pas dans la cavité (qui seront éventuellement ajouter à front)
 // "nouvCavite" est la nouvelle cavité qui a été chosie pour être ajoutée à la cavité
-// "nx" est la largeur du labyrinthe et est un mobre entier > 0
-// "nx" est la hauteur du labyrinthe et est un mobre entier > 0
+// "nx" est la largeur du labyrinthe et est un nombre entier > 0
+// "nx" est la hauteur du labyrinthe et est un nombre entier > 0
 // "cave" est un tableau des cellues faisant parties de la cavité
 var obtenirVoisins = function (nouvCavite, nx, ny, cave) {
     var voisinsCave = Array(0); // tableau qui va contenir toutes les cellules voisines de la nouvelle cellule cavité et qui sont déjà dans la cavité
@@ -372,26 +372,25 @@ var sortirLaby = function (nx, ny, pas, distance, murs, position, direction) {
         else {
             position = avancerDevant(position, direction, distance, pas); // on avance à la cellule devant
             if (position.x == nx - 1 && position.y == ny) { // fin de la boucle puisqu'on vient de sortir du labyrinthe
-            break;
+                break;
+            }
+            if (direction != 0 && !murDroitExiste(position, direction, nx, murs)) { // si direction <> 0 et pas de mur à notre droite
+                direction = tournerDroite(direction); // on tourne à droite
+                position = avancerDevant(position, direction, distance, pas); // on avance à la cellule devant
+                if (position.x == nx - 1 && position.y == ny) { // fin de la boucle puisqu'on vient de sortir du labyrinthe
+                    break;
+                }
+                if (direction != 0 && !murDroitExiste(position, direction, nx, murs)) { // si direction <> 0 et pas de mur à notre doirte
+                    direction = tournerDroite(direction); // on tourne à droite
+                    position = avancerDevant(position, direction, distance, pas); // on avance à la cellule devant
+                    if (position.x == nx - 1 && position.y == ny) { // fin de la boucle puisqu'on vient de sortir du labyrinthe
+                        break;
+                    }
+                }
+            }
         }
-        if (direction != 0 && !murDroitExiste(position, direction, nx, murs)) { // si direction <> 0 et pas de mur à notre droite
-            direction = tournerDroite(direction); // on tourne à droite
-            position = avancerDevant(position, direction, distance, pas); // on avance à la cellule devant
-            if (position.x == nx - 1 && position.y == ny) { // fin de la boucle puisqu'on vient de sortir du labyrinthe
-            break;
-        }
-        if (direction != 0 && !murDroitExiste(position, direction, nx, murs)) { // si direction <> 0 et pas de mur à notre doirte
-            direction = tournerDroite(direction); // on tourne à droite
-            position = avancerDevant(position, direction, distance, pas); // on avance à la cellule devant
-            if (position.x == nx - 1 && position.y == ny) { // fin de la boucle puisqu'on vient de sortir du labyrinthe
-            break;
-        }
+        longerMur(distance, pas); // on longe le mur (qui pourrait être fictif si direction = 0) sans changer de cellule
     }
-}
-}
-longerMur(distance, pas); // on longe le mur (qui pourrait être fictif si direction = 0) sans changer de cellule
-}
-
 };
 
 var genererEtDessinerLaby = function (nx, ny, pas) {
@@ -412,7 +411,6 @@ var genererEtDessinerLaby = function (nx, ny, pas) {
     dessinerMurs(murs, pas, nx, ny); // dessiner le labyrinthe
 
     return murs; // on return l'objet murs puisqu'il sera utilisé par la fonction genererEtDessinerSol
-
 };
 
 var genererEtDessinerSol = function (nx, ny, pas, mursLaby) {
@@ -430,9 +428,7 @@ var genererEtDessinerSol = function (nx, ny, pas, mursLaby) {
 // "ny" est un nombre entier > 0 et représente la hauteur du labyrinthe
 // "pas" est un nombre entier > 0 et représente la largeur et la hauteur (en pixel) de chacune des cellules carées du labyrinthe
 var laby = function (nx, ny, pas) {
-
     genererEtDessinerLaby(nx, ny, pas); // générer et dessiner le labyrinthe
-
 };
 
 // Cette fonction prend 3 paramètres (nx, ny et pas) et crée et dessine un labyrinthe
