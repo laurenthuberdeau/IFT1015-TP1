@@ -141,8 +141,10 @@ var voisins = function (x, y, nx, ny) {
 // "nx" est la largeur du labyrinthe et est un nombre entier > 0
 // "ny" est la largeur du labyrinthe et est un nombre entier > 0
 var dessinerMurV = function (murV, pas, nx, ny) {
-    var x = (murV % (nx + 1) - nx / 2) * pas; // coordonée x de l'extrémité supérieure du mur
-    var y = (ny / 2 - Math.floor(murV / (nx + 1))) * pas; // coordonée y de l'extrémité supérieure du mur
+    var xCenterOffset = nx / 2 * pas;
+    var yCenterOffset = ny / 2 * pas;
+    var x = murV % (nx + 1) * pas - xCenterOffset; // coordonée x de l'extrémité supérieure du mur
+    var y = yCenterOffset - Math.floor(murV / (nx + 1)) * pas; // coordonée y de l'extrémité supérieure du mur
     pu();
     mv(x, y); // positioner le crayon au haut du mur
     pd();
@@ -156,10 +158,12 @@ var dessinerMurV = function (murV, pas, nx, ny) {
 // "nx" est la largeur du labyrinthe et est un nombre entier > 0
 // "ny" est la largeur du labyrinthe et est un nombre entier > 0
 var dessinerMurH = function (murH, pas, nx, ny) {
-    var x = (murH % nx - nx / 2) * pas; // coordonée x de l'extrémité gauche du mur
-    var y = (ny / 2 - Math.floor(murH / nx)) * pas; // coordonée x de l'extrémité gauche du mur
+    var xCenterOffset = nx / 2 * pas;
+    var yCenterOffset = ny / 2 * pas;
+    var x = murH % nx * pas - xCenterOffset; // coordonée x de l'extrémité gauche du mur
+    var y = yCenterOffset - Math.floor(murH / nx) * pas; // coordonée x de l'extrémité gauche du mur
     pu();
-    mv(x, y); // positioner le crayon à gauche du mur
+    mv(x, y); // positioner le crayon au haut du mur
     pd();
     mv(x + pas, y); // dessiner le mur vers le bas
 };
