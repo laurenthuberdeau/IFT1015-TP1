@@ -18,12 +18,6 @@ var iota = function (n) {
     }
     return tab;
 };
-// Tests unitaires pour la fonction iota
-var testIota = function () {
-    assert(iota(0) == ""); // test vide
-    assert(iota(1) == "0"); // test 1 élément
-    assert(iota(7) == "0,1,2,3,4,5,6"); // test plusieurs éléments
-};
 
 // Cette fonction prend 2 paramètres (tab et x) et retourne l'index du nombre si x est
 // contenu dans le tableau tab sinon elle retourne -1 pour indiquer que x n'est pas dans
@@ -33,16 +27,6 @@ var testIota = function () {
 var contientIndex = function (tab, x) {
     return tab.indexOf(x);
 };
-// Tests unitaires pour la fonction contient
-var testContientIndex = function () {
-    assert(contientIndex([9,2,5],9) == 0); // test - contient premier
-    assert(contientIndex([9,2,5],5) == 2); // test - contient dernier
-    assert(contientIndex([9,2,5],2) == 1); // test - contient !premier && !dernier
-    assert(contientIndex([9,2,5],4) == -1); // test - contient pas
-    assert(contientIndex([7],7) == 0); // test liste 1 element - contient
-    assert(contientIndex([7],8) == -1); // test liste 1 element - contient pas
-    assert(contientIndex([],5) == -1); // test liste vide
-};
 
 // Cette fonction prend 2 paramètres (tab et x) et retourne true si x est
 // contenu dans le tableau tab sinon elle retourne false
@@ -50,16 +34,6 @@ var testContientIndex = function () {
 // "x" est l'élément cherchée dans le tableau
 var contient = function (tab, x) {
     return (contientIndex(tab, x) != -1); // i < length => on a trouvé le nombre, donc on retourne true sinon false
-};
-// Tests unitaires pour la fonction contient
-var testContient = function () {
-    assert(contient([9,2,5],9)); // test - contient premier
-    assert(contient([9,2,5],5)); // test - contient dernier
-    assert(contient([9,2,5],2)); // test - contient !premier && !dernier
-    assert(!contient([9,2,5],4)); // test - contient pas
-    assert(contient([7],7)); // test liste 1 element - contient
-    assert(!contient([7],8)); // test liste 1 element - contient pas
-    assert(!contient([],5)); // test liste vide
 };
 
 // Cette fonction prend 2 paramètres (tab et x) et retourne un nouveau tableau
@@ -72,16 +46,6 @@ var ajouter = function (tab, x) {
         nouvTab.push(x);
     }
     return nouvTab; // on retourne le nouveau tableau
-};
-// Tests unitaires pour la fonction ajouter
-var testAjouter = function () {
-    assert(ajouter([9,2,5],6) == "9,2,5,6"); // test - ajouter
-    assert(ajouter([9,2,5],9) == "9,2,5"); // test - déjà dans la liste - premier
-    assert(ajouter([9,2,5],5) == "9,2,5"); // test - déjà dans la liste - dernier
-    assert(ajouter([9,2,5],2) == "9,2,5"); // test - déjà dans la liste - !premier && !dernier
-    assert(ajouter([3],7) == "3,7"); // test liste 1 élement - ajouter
-    assert(ajouter([3],3) == "3"); // test liste 1 élement - déjà dans la liste
-    assert(ajouter([],8) == "8"); // test liste vide
 };
 
 // Cette fonction prend 2 paramètres (tab et x) et retourne un nouveau tableau
@@ -101,16 +65,6 @@ var retirer = function (tab, x) {
     }
     return nouvTab; // on retourne le nouveau tableau
 };
-// Tests unitaires pour la fonction ajouter
-var testRetirer = function () {
-    assert(retirer([9,2,5,11,8],6) == "9,2,5,11,8"); // test - pas dans la liste
-    assert(retirer([9,2,5,11,8],9) == "2,5,11,8"); // test - retirer premier
-    assert(retirer([9,2,5,11,8],8) == "9,2,5,11"); // test - retirer dernier
-    assert(retirer([9,2,5,11,8],5) == "9,2,11,8"); // test - !premier && !dernier
-    assert(retirer([3],3) == ""); // test liste 1 élement - retirer
-    assert(retirer([3],7) == "3"); // test liste 1 élement - pas dans la liste
-    assert(retirer([],8) == ""); // test liste vide
-};
 
 // Cette fonction prend 3 paramètres (x, y et nx) et retourne le no de la cellule correspondante
 // à la coordonnée (x, y) d'un tableau de longueur nx (la coordonnée en haut à gauche est (0,0))
@@ -121,19 +75,6 @@ var testRetirer = function () {
 var xy2no = function (x, y, nx) {
     return (x + y * nx); // retourne le no de la cellule
 };
-// Tests unitaires pour la fonction ajouter
-var testXy2no = function () {
-    assert(xy2no(7, 2, 8) == 23); // nx=8, x=7, y=2
-    assert(xy2no(7, 1, 8) == 15); // y=1
-    assert(xy2no(7, 0, 8) == 7); // y=0
-
-    assert(xy2no(2, 3, 5) == 17); // nx=5, y=3, x=2
-    assert(xy2no(1, 3, 5) == 16); // x=1
-    assert(xy2no(0, 3, 5) == 15); // x=0
-
-    assert(xy2no(0, 0, 4) == 0); // première coordonnée
-    assert(xy2no(3, 3, 4) == 15); // dernière coordonnée (nx=4)
-};
 
 // Cette fonction prend 2 paramètres (no et nx) et retourne le coordonnée x de la cellule no
 // d'un tableau de longueur nx (la coordonnée en haut à gauche est (0,0))
@@ -143,20 +84,6 @@ var testXy2no = function () {
 var no2x = function (no, nx) {
     return (no % nx); // retourne la coordonnée x de la cellule
 };
-// Tests unitaires pour la fonction ajouter
-var testNo2x = function () {
-    assert(no2x(0, 8) == 0); // nx=8, (première cellule de la première ligne)
-    assert(no2x(10, 8) == 2); // (3ième cellule de la 2ième ligne)
-    assert(no2x(31, 8) == 7); // (dernière cellule de la 4ième ligne)
-
-    assert(no2x(15, 3) == 0); // nx=3, (première cellule de la 6ième ligne)
-    assert(no2x(16, 3) == 1); // (celulle du milieu de la 6ième ligne)
-    assert(no2x(17, 3) == 2); // (dernière cellule de la 6ième ligne)
-
-    assert(no2x(0, 1) == 0); // nx=1, (première et seule cellule de la 1ère ligne)
-    assert(no2x(1, 1) == 0); // (première et seule cellule de la 2ième ligne)
-    assert(no2x(2, 1) == 0); // (première et seule cellule de la 3ième ligne)
-};
 
 // Cette fonction prend 2 paramètres (no et nx) et retourne le coordonnée y de la cellule no
 // d'un tableau de longueur nx (la coordonnée en haut à gauche est (0,0))
@@ -165,20 +92,6 @@ var testNo2x = function () {
 // "nx" est la largeur du labyrinthe et est un mobre entier > 0
 var no2y = function (no, nx) {
     return Math.floor(no / nx); // retourne la coordonnée y de la cellule
-};
-// Tests unitaires pour la fonction ajouter
-var testNo2y = function () {
-    assert(no2y(0, 8) == 0); // nx=8, (première cellule de la première ligne)
-    assert(no2y(10, 8) == 1); // (3ième cellule de la 2ième ligne)
-    assert(no2y(31, 8) == 3); // (dernière cellule de la 4ième ligne)
-
-    assert(no2y(15, 3) == 5); // nx=3, (première cellule de la 6ième ligne)
-    assert(no2y(16, 3) == 5); // (celulle du milieu de la 6ième ligne)
-    assert(no2y(17, 3) == 5); // (dernière cellule de la 6ième ligne)
-
-    assert(no2y(0, 1) == 0); // nx=1, (première et seule cellule de la 1ère ligne)
-    assert(no2y(1, 1) == 1); // (première et seule cellule de la 2ième ligne)
-    assert(no2y(2, 1) == 2); // (première et seule cellule de la 3ième ligne)
 };
 
 // Cette fonction prend 4 paramètres (x, y, nx et ny) et retourne un tableau
@@ -205,50 +118,6 @@ var voisins = function (x, y, nx, ny) {
     }
     return tab; // on retourne le tableau des cellules voisines
 };
-// Tests unitaires pour la fonction ajouter
-var testVoisins = function () {
-    assert(voisins(7, 2, 8, 4) == "15,22,31");
-
-    assert(voisins(0, 0, 8, 4) == "1,8");
-    assert(voisins(0, 1, 8, 4) == "0,9,16");
-    assert(voisins(0, 2, 8, 4) == "8,17,24");
-    assert(voisins(0, 3, 8, 4) == "16,25");
-
-    assert(voisins(1, 0, 8, 4) == "0,2,9");
-    assert(voisins(1, 1, 8, 4) == "1,8,10,17");
-    assert(voisins(1, 2, 8, 4) == "9,16,18,25");
-    assert(voisins(1, 3, 8, 4) == "17,24,26");
-
-    assert(voisins(2, 0, 8, 4) == "1,3,10");
-    assert(voisins(2, 1, 8, 4) == "2,9,11,18");
-    assert(voisins(2, 2, 8, 4) == "10,17,19,26");
-    assert(voisins(2, 3, 8, 4) == "18,25,27");
-
-    assert(voisins(3, 0, 8, 4) == "2,4,11");
-    assert(voisins(3, 1, 8, 4) == "3,10,12,19");
-    assert(voisins(3, 2, 8, 4) == "11,18,20,27");
-    assert(voisins(3, 3, 8, 4) == "19,26,28");
-
-    assert(voisins(4, 0, 8, 4) == "3,5,12");
-    assert(voisins(4, 1, 8, 4) == "4,11,13,20");
-    assert(voisins(4, 2, 8, 4) == "12,19,21,28");
-    assert(voisins(4, 3, 8, 4) == "20,27,29");
-
-    assert(voisins(5, 0, 8, 4) == "4,6,13");
-    assert(voisins(5, 1, 8, 4) == "5,12,14,21");
-    assert(voisins(5, 2, 8, 4) == "13,20,22,29");
-    assert(voisins(5, 3, 8, 4) == "21,28,30");
-
-    assert(voisins(6, 0, 8, 4) == "5,7,14");
-    assert(voisins(6, 1, 8, 4) == "6,13,15,22");
-    assert(voisins(6, 2, 8, 4) == "14,21,23,30");
-    assert(voisins(6, 3, 8, 4) == "22,29,31");
-
-    assert(voisins(7, 0, 8, 4) == "6,15");
-    assert(voisins(7, 1, 8, 4) == "7,14,23");
-    assert(voisins(7, 2, 8, 4) == "15,22,31");
-    assert(voisins(7, 3, 8, 4) == "23,30");
-};
 
 // Cette fonction prend 4 paramètres (murV, pas, nx et ny) et dessine un mur vertical de
 // longueur pas pixels et utilise murV, nx et ny pour positioner le mur
@@ -263,10 +132,6 @@ var dessinerMurV = function (murV, pas, nx, ny) {
     mv(x, y); // positioner le crayon au haut du mur
     pd();
     mv(x, y - pas); // dessiner le mur vers le bas
-};
-// Tests unitaires pour la fonction dessinerMurV
-var testDessinerMurV = function () {
-    // On ne fait pas de tests unitaires pour cette fonction puisqu'elle dessine des murs
 };
 
 // Cette fonction prend 4 paramètres (murH, pas, nx et ny) et dessine un mur horizontal de
@@ -283,10 +148,6 @@ var dessinerMurH = function (murH, pas, nx, ny) {
     pd();
     mv(x + pas, y); // dessiner le mur vers le bas
 };
-// Tests unitaires pour la fonction dessinerMurH
-var testDessinerMurH = function () {
-    // On ne fait pas de tests unitaires pour cette fonction puisqu'elle dessine des murs
-};
 
 // Cette fonction prend 4 paramètres (murs, pas, nx et ny) et dessine tous les murs
 // "murs" est l'objet contenant 2 tableux (celui des murs horizontaux et celui des murs verticaux)
@@ -301,10 +162,6 @@ var dessinerMurs = function (murs, pas, nx, ny) {
         dessinerMurH(murs.h[i], pas, nx, ny);
     }
 };
-// Tests unitaires pour la fonction dessinerMurs
-var testDessinerMurs = function () {
-    // On ne fait pas de tests unitaires pour cette fonction puisqu'elle dessine des murs
-};
 
 // Cette fonction prend 2 paramètres (nx et ny) et retourne un object contenant 2 tableaux (celui de l'ensemble des murs horizontaux
 // et celui de l'ensemble des murs verticaux)
@@ -313,20 +170,12 @@ var testDessinerMurs = function () {
 var creerMurs = function (nx, ny) {
     return {h: iota(nx * (ny + 1)), v: iota(ny * (nx + 1))}; // retourne un tableau avec l'ensemble des murs horizontaux
 };
-// Tests unitaires pour la fonction creerMurs
-var testCreerMurs = function () {
-    // TODO
-};
 
 // Cette fonction prend 2 paramètres (nx et ny) et retourne un tableau contenant la cavité initiale choisie aléatoirement
 // "nx" est la largeur du labyrinthe et est un mobre entier > 0
 // "ny" est la largeur du labyrinthe et est un mobre entier > 0
 var creerCave = function (nx, ny) {
     return [Math.floor(Math.random() * nx * ny)]; // retourne un tableau contenant la cellule cavité initiale choisie aléatoirement
-};
-// Tests unitaires pour la fonction creerCave
-var testCreerCave = function () {
-    // TODO
 };
 
 // Cette fonction prend 3 paramètres (cavite, nx et ny) et retourne un tableau contenant les cellules sur la frontière de la cavité initiale
@@ -336,19 +185,11 @@ var testCreerCave = function () {
 var creerFront = function (cavite, nx, ny) {
     return voisins(no2x(cavite, nx), no2y(cavite, nx), nx, ny); // retourne un tableau contenant les cellules sur la frontière de la cavité initiale
 };
-// Tests unitaires pour la fonction creerFront
-var testCreerFront = function () {
-    // TODO
-};
 
 // Cette fonction prend 1 paramètre (front) et retourne la nouvelle cellule cavité chosie aléatoirement parmis les cellules sur la frontière de la cavité
 // "front" est le tableau des cellues qui sont sur la frontière de la cavité
 var obtenirNouvCavite = function (front) {
     return front[Math.floor(Math.random() * front.length)]; // retourne la nouvelle cellule cavité chosie aléatoirement parmis les cellules sur la frontière de la cavité
-};
-// Tests unitaires pour la fonction obtenirNouvCavite
-var testObtenirNouvCavite = function () {
-    // TODO
 };
 
 // Cette fonction prend 1 paramètre (murs) et retourne un objet ayant la même structure et pointant sur le même tableau des
@@ -357,10 +198,6 @@ var testObtenirNouvCavite = function () {
 // "murs" est l'objet contenant 2 tableux (celui des murs horizontaux et celui des murs verticaux)
 var retirerMursHorEntreeSortie = function (murs) {
     return {h: murs.h.slice(1, murs.h.length - 1), v: murs.v}; // retourne un objet ayant la même structure et pointant sur le même tableau des murs verticaux (puisque celui n'est pas affecté par la fonction) mais pointant sur un nouveau tables des murs horizontaux étant donné qu'on doit lui retirer le premier mur pour créer l'entrée du labyrinthe et le dernier mur pour créer la sortie
-};
-// Tests unitaires pour la fonction retirerMursHorEntreeSortie
-var testRetirerMursHorEntreeSortie = function () {
-    // TODO
 };
 
 // Cette fonction prend 4 paramètres (murs, nouvCavite, caviteVoisine et nx) et retourne un objet murs ayant la même structure mais dont le
@@ -390,10 +227,6 @@ var retirerMur = function (murs, nouvCavite, caviteVoisine, nx) {
     }
     return {h: mursH, v: mursV}; // retourne un objet murs ayant la même structure mais dont le mur entre les 2 cavités a été retiré (si c'est un mur horizontal qui a été retiré alors l'objet pointe sur un nouveau tableau horizontal et sur le même tableau vertical (puisque celui n'est pas affecté par la fonction) et inversement si c'est un mur vertical qui a été retiré
 };
-// Tests unitaires pour la fonction retirerMur
-var testRetirerMur = function () {
-    // TODO
-};
 
 // Cette fonction prend 4 paramètres (nouvCavite, nx, ny et cave) et retourne un objet avec la cellule cavité voisine chosie aléatoirement parmis
 // les cellues cavités voisines et un tableau des cellules voisines qui ne sont pas dans la cavité (qui seront éventuellement ajouter à front)
@@ -417,20 +250,12 @@ var obtenirVoisins = function (nouvCavite, nx, ny, cave) {
     var caviteVoisine = voisinsCave[Math.floor(Math.random() * voisinsCave.length)]; // choisir la cellule voisine qui est déjà dans la cavité, c'est entre celle-ci et la nouvelle cellule de la cavité que le mur sera retiré
     return {cavite: caviteVoisine, front: voisinsFront}; // retourne un objet avec la cellule cavité voisine chosie aléatoirement parmis les cellues cavités voisines et un tableau des cellules voisines qui ne sont pas dans la cavité et qui seront éventuellement ajouter à la frontiere
 };
-// Tests unitaires pour la fonction obtenirVoisins
-var testObtenirVoisins = function () {
-    // TODO
-};
 
 // Cette fonction prend 2 paramètres (cave et nouvCavite) et retourne un tableau des cellules de la cavité comprenant la nouvelle cellule de la cavité
 // "cave" est un tableau des cellues faisant parties de la cavité
 // "nouvCavite" est la nouvelle cavité qui a été chosie pour être ajoutée à la cavité
 var ajouterCavite = function (cave, nouvCavite) {
     return ajouter(cave, nouvCavite); // retourne un tableau des cellules de la cavité comprenant la nouvelle cellule de la cavité
-};
-// Tests unitaires pour la fonction ajouterCavite
-var testAjouterCavite = function () {
-    // TODO
 };
 
 // Cette fonction prend 3 paramètres (front, nouvCavite, voisinsFront) et retourne un tableau des cellules de la nouvelle frontière
@@ -445,73 +270,21 @@ var obtenirNouvFront = function (front, nouvCavite, voisinsFront) {
     }
     return nouvFront; //retourne un tableau des cellules de la nouvelle frontière
 };
-// Tests unitaires pour la fonction obtenirNouvFront
-var testObtenirNouvFront = function () {
-    // TODO
-};
 
 var noMurN = function (x, y, nx) {
     return (x + y * nx);
-};
-var testnoMurN = function () {
-    assert(noMurN(7, 2, 8) == 23); // nx=8, x=7, y=2
-    assert(noMurN(7, 1, 8) == 15); // y=1
-    assert(noMurN(7, 0, 8) == 7); // y=0
-
-    assert(noMurN(2, 3, 5) == 17); // nx=5, y=3, x=2
-    assert(noMurN(1, 3, 5) == 16); // x=1
-    assert(noMurN(0, 3, 5) == 15); // x=0
-
-    assert(noMurN(0, 0, 4) == 0); // première coordonnée
-    assert(noMurN(3, 3, 4) == 15); // dernière coordonnée (nx=4)
 };
 
 var noMurS = function (x, y, nx) {
     return (x + (y + 1) * nx);
 };
-var testnoMurS = function () {
-    assert(noMurS(7, 2, 8) == 31); // nx=8, x=7, y=2
-    assert(noMurS(7, 1, 8) == 23); // y=1
-    assert(noMurS(7, 0, 8) == 15); // y=0
-
-    assert(noMurS(2, 3, 5) == 22); // nx=5, y=3, x=2
-    assert(noMurS(1, 3, 5) == 21); // x=1
-    assert(noMurS(0, 3, 5) == 20); // x=0
-
-    assert(noMurS(0, 0, 4) == 4); // première coordonnée
-    assert(noMurS(3, 3, 4) == 19); // dernière coordonnée (nx=4)
-};
 
 var noMurE = function (x, y, nx) {
     return (1 + x + y * (nx + 1));
 };
-var testnoMurE = function () {
-    assert(noMurE(7, 2, 8) == 26); // nx=8, x=7, y=2
-    assert(noMurE(7, 1, 8) == 17); // y=1
-    assert(noMurE(7, 0, 8) == 8); // y=0
-
-    assert(noMurE(2, 3, 5) == 21); // nx=5, y=3, x=2
-    assert(noMurE(1, 3, 5) == 20); // x=1
-    assert(noMurE(0, 3, 5) == 19); // x=0
-
-    assert(noMurE(0, 0, 4) == 1); // première coordonnée
-    assert(noMurE(3, 3, 4) == 19); // dernière coordonnée (nx=4)
-};
 
 var noMurO = function (x, y, nx) {
     return (x + y * (nx + 1));
-};
-var testnoMurO = function () {
-    assert(noMurO(7, 2, 8) == 25); // nx=8, x=7, y=2
-    assert(noMurO(7, 1, 8) == 16); // y=1
-    assert(noMurO(7, 0, 8) == 7); // y=0
-
-    assert(noMurO(2, 3, 5) == 20); // nx=5, y=3, x=2
-    assert(noMurO(1, 3, 5) == 19); // x=1
-    assert(noMurO(0, 3, 5) == 18); // x=0
-
-    assert(noMurO(0, 0, 4) == 0); // première coordonnée
-    assert(noMurO(3, 3, 4) == 18); // dernière coordonnée (nx=4)
 };
 
 var obtenirDirectionNormalisee = function (direction) {
@@ -673,31 +446,348 @@ var labySol = function (nx, ny, pas) {
 
 };
 
-testIota();
-testContientIndex();
-testContient();
-testAjouter();
-testRetirer();
-testXy2no();
-testNo2x();
-testNo2y();
-testVoisins();
-testDessinerMurV();
-testDessinerMurH();
-testDessinerMurs();
-testCreerMurs();
-testCreerCave();
-testCreerFront();
-testObtenirNouvCavite();
-testObtenirVoisins();
-testRetirerMursHorEntreeSortie();
-testRetirerMur();
-testAjouterCavite();
-testObtenirNouvFront();
-testnoMurN();
-testnoMurS();
-testnoMurE();
-testnoMurO();
+
+////////////////////////////////////////////////////////////////////////////////
+// Tests unitaires
+////////////////////////////////////////////////////////////////////////////////
+var testerFonctions = function() {
+
+    // Tests unitaires pour la fonction iota
+    var testIota = function () {
+        assert(iota(0) == ""); // test vide
+        assert(iota(1) == "0"); // test 1 élément
+        assert(iota(7) == "0,1,2,3,4,5,6"); // test plusieurs éléments
+    };
+
+    // Tests unitaires pour la fonction contient
+    var testContientIndex = function () {
+        assert(contientIndex([9,2,5],9) == 0); // test - contient premier
+        assert(contientIndex([9,2,5],5) == 2); // test - contient dernier
+        assert(contientIndex([9,2,5],2) == 1); // test - contient !premier && !dernier
+        assert(contientIndex([9,2,5],4) == -1); // test - contient pas
+        assert(contientIndex([7],7) == 0); // test liste 1 element - contient
+        assert(contientIndex([7],8) == -1); // test liste 1 element - contient pas
+        assert(contientIndex([],5) == -1); // test liste vide
+    };
+
+    // Tests unitaires pour la fonction contient
+    var testContient = function () {
+        assert(contient([9,2,5],9)); // test - contient premier
+        assert(contient([9,2,5],5)); // test - contient dernier
+        assert(contient([9,2,5],2)); // test - contient !premier && !dernier
+        assert(!contient([9,2,5],4)); // test - contient pas
+        assert(contient([7],7)); // test liste 1 element - contient
+        assert(!contient([7],8)); // test liste 1 element - contient pas
+        assert(!contient([],5)); // test liste vide
+    };
+
+    // Tests unitaires pour la fonction ajouter
+    var testAjouter = function () {
+        assert(ajouter([9,2,5],6) == "9,2,5,6"); // test - ajouter
+        assert(ajouter([9,2,5],9) == "9,2,5"); // test - déjà dans la liste - premier
+        assert(ajouter([9,2,5],5) == "9,2,5"); // test - déjà dans la liste - dernier
+        assert(ajouter([9,2,5],2) == "9,2,5"); // test - déjà dans la liste - !premier && !dernier
+        assert(ajouter([3],7) == "3,7"); // test liste 1 élement - ajouter
+        assert(ajouter([3],3) == "3"); // test liste 1 élement - déjà dans la liste
+        assert(ajouter([],8) == "8"); // test liste vide
+    };
+
+    // Tests unitaires pour la fonction ajouter
+    var testRetirer = function () {
+        assert(retirer([9,2,5,11,8],6) == "9,2,5,11,8"); // test - pas dans la liste
+        assert(retirer([9,2,5,11,8],9) == "2,5,11,8"); // test - retirer premier
+        assert(retirer([9,2,5,11,8],8) == "9,2,5,11"); // test - retirer dernier
+        assert(retirer([9,2,5,11,8],5) == "9,2,11,8"); // test - !premier && !dernier
+        assert(retirer([3],3) == ""); // test liste 1 élement - retirer
+        assert(retirer([3],7) == "3"); // test liste 1 élement - pas dans la liste
+        assert(retirer([],8) == ""); // test liste vide
+    };
+
+    // Tests unitaires pour la fonction ajouter
+    var testXy2no = function () {
+        assert(xy2no(7, 2, 8) == 23); // nx=8, x=7, y=2
+        assert(xy2no(7, 1, 8) == 15); // y=1
+        assert(xy2no(7, 0, 8) == 7); // y=0
+
+        assert(xy2no(2, 3, 5) == 17); // nx=5, y=3, x=2
+        assert(xy2no(1, 3, 5) == 16); // x=1
+        assert(xy2no(0, 3, 5) == 15); // x=0
+
+        assert(xy2no(0, 0, 4) == 0); // première coordonnée
+        assert(xy2no(3, 3, 4) == 15); // dernière coordonnée (nx=4)
+    };
+
+    // Tests unitaires pour la fonction ajouter
+    var testNo2x = function () {
+        assert(no2x(0, 8) == 0); // nx=8, (première cellule de la première ligne)
+        assert(no2x(10, 8) == 2); // (3ième cellule de la 2ième ligne)
+        assert(no2x(31, 8) == 7); // (dernière cellule de la 4ième ligne)
+
+        assert(no2x(15, 3) == 0); // nx=3, (première cellule de la 6ième ligne)
+        assert(no2x(16, 3) == 1); // (celulle du milieu de la 6ième ligne)
+        assert(no2x(17, 3) == 2); // (dernière cellule de la 6ième ligne)
+
+        assert(no2x(0, 1) == 0); // nx=1, (première et seule cellule de la 1ère ligne)
+        assert(no2x(1, 1) == 0); // (première et seule cellule de la 2ième ligne)
+        assert(no2x(2, 1) == 0); // (première et seule cellule de la 3ième ligne)
+    };
+
+    // Tests unitaires pour la fonction ajouter
+    var testNo2y = function () {
+        assert(no2y(0, 8) == 0); // nx=8, (première cellule de la première ligne)
+        assert(no2y(10, 8) == 1); // (3ième cellule de la 2ième ligne)
+        assert(no2y(31, 8) == 3); // (dernière cellule de la 4ième ligne)
+
+        assert(no2y(15, 3) == 5); // nx=3, (première cellule de la 6ième ligne)
+        assert(no2y(16, 3) == 5); // (celulle du milieu de la 6ième ligne)
+        assert(no2y(17, 3) == 5); // (dernière cellule de la 6ième ligne)
+
+        assert(no2y(0, 1) == 0); // nx=1, (première et seule cellule de la 1ère ligne)
+        assert(no2y(1, 1) == 1); // (première et seule cellule de la 2ième ligne)
+        assert(no2y(2, 1) == 2); // (première et seule cellule de la 3ième ligne)
+    };
+
+    // Tests unitaires pour la fonction ajouter
+    var testVoisins = function () {
+        assert(voisins(7, 2, 8, 4) == "15,22,31");
+
+        assert(voisins(0, 0, 8, 4) == "1,8");
+        assert(voisins(0, 1, 8, 4) == "0,9,16");
+        assert(voisins(0, 2, 8, 4) == "8,17,24");
+        assert(voisins(0, 3, 8, 4) == "16,25");
+
+        assert(voisins(1, 0, 8, 4) == "0,2,9");
+        assert(voisins(1, 1, 8, 4) == "1,8,10,17");
+        assert(voisins(1, 2, 8, 4) == "9,16,18,25");
+        assert(voisins(1, 3, 8, 4) == "17,24,26");
+
+        assert(voisins(2, 0, 8, 4) == "1,3,10");
+        assert(voisins(2, 1, 8, 4) == "2,9,11,18");
+        assert(voisins(2, 2, 8, 4) == "10,17,19,26");
+        assert(voisins(2, 3, 8, 4) == "18,25,27");
+
+        assert(voisins(3, 0, 8, 4) == "2,4,11");
+        assert(voisins(3, 1, 8, 4) == "3,10,12,19");
+        assert(voisins(3, 2, 8, 4) == "11,18,20,27");
+        assert(voisins(3, 3, 8, 4) == "19,26,28");
+
+        assert(voisins(4, 0, 8, 4) == "3,5,12");
+        assert(voisins(4, 1, 8, 4) == "4,11,13,20");
+        assert(voisins(4, 2, 8, 4) == "12,19,21,28");
+        assert(voisins(4, 3, 8, 4) == "20,27,29");
+
+        assert(voisins(5, 0, 8, 4) == "4,6,13");
+        assert(voisins(5, 1, 8, 4) == "5,12,14,21");
+        assert(voisins(5, 2, 8, 4) == "13,20,22,29");
+        assert(voisins(5, 3, 8, 4) == "21,28,30");
+
+        assert(voisins(6, 0, 8, 4) == "5,7,14");
+        assert(voisins(6, 1, 8, 4) == "6,13,15,22");
+        assert(voisins(6, 2, 8, 4) == "14,21,23,30");
+        assert(voisins(6, 3, 8, 4) == "22,29,31");
+
+        assert(voisins(7, 0, 8, 4) == "6,15");
+        assert(voisins(7, 1, 8, 4) == "7,14,23");
+        assert(voisins(7, 2, 8, 4) == "15,22,31");
+        assert(voisins(7, 3, 8, 4) == "23,30");
+    };
+
+    // Tests unitaires pour la fonction dessinerMurV
+    var testDessinerMurV = function () {
+        // On ne fait pas de tests unitaires pour cette fonction puisqu'elle dessine des murs
+    };
+
+    // Tests unitaires pour la fonction dessinerMurH
+    var testDessinerMurH = function () {
+        // On ne fait pas de tests unitaires pour cette fonction puisqu'elle dessine des murs
+    };
+
+    // Tests unitaires pour la fonction dessinerMurs
+    var testDessinerMurs = function () {
+        // On ne fait pas de tests unitaires pour cette fonction puisqu'elle dessine des murs
+    };
+
+    // Tests unitaires pour la fonction creerMurs
+    var testCreerMurs = function () {
+        // TODO
+    };
+
+    // Tests unitaires pour la fonction creerCave
+    var testCreerCave = function () {
+        // TODO
+    };
+
+    // Tests unitaires pour la fonction creerFront
+    var testCreerFront = function () {
+        // TODO
+    };
+
+    // Tests unitaires pour la fonction obtenirNouvCavite
+    var testObtenirNouvCavite = function () {
+        // TODO
+    };
+
+    // Tests unitaires pour la fonction retirerMursHorEntreeSortie
+    var testRetirerMursHorEntreeSortie = function () {
+        // TODO
+    };
+
+    // Tests unitaires pour la fonction retirerMur
+    var testRetirerMur = function () {
+        // TODO
+    };
+
+    // Tests unitaires pour la fonction obtenirVoisins
+    var testObtenirVoisins = function () {
+        // TODO
+    };
+
+    // Tests unitaires pour la fonction ajouterCavite
+    var testAjouterCavite = function () {
+        // TODO
+    };
+
+    // Tests unitaires pour la fonction obtenirNouvFront
+    var testObtenirNouvFront = function () {
+        // TODO
+    };
+
+    var testNoMurN = function () {
+        assert(noMurN(7, 2, 8) == 23); // nx=8, x=7, y=2
+        assert(noMurN(7, 1, 8) == 15); // y=1
+        assert(noMurN(7, 0, 8) == 7); // y=0
+
+        assert(noMurN(2, 3, 5) == 17); // nx=5, y=3, x=2
+        assert(noMurN(1, 3, 5) == 16); // x=1
+        assert(noMurN(0, 3, 5) == 15); // x=0
+
+        assert(noMurN(0, 0, 4) == 0); // première coordonnée
+        assert(noMurN(3, 3, 4) == 15); // dernière coordonnée (nx=4)
+    };
+
+    var testNoMurS = function () {
+        assert(noMurS(7, 2, 8) == 31); // nx=8, x=7, y=2
+        assert(noMurS(7, 1, 8) == 23); // y=1
+        assert(noMurS(7, 0, 8) == 15); // y=0
+
+        assert(noMurS(2, 3, 5) == 22); // nx=5, y=3, x=2
+        assert(noMurS(1, 3, 5) == 21); // x=1
+        assert(noMurS(0, 3, 5) == 20); // x=0
+
+        assert(noMurS(0, 0, 4) == 4); // première coordonnée
+        assert(noMurS(3, 3, 4) == 19); // dernière coordonnée (nx=4)
+    };
+
+    var testNoMurE = function () {
+        assert(noMurE(7, 2, 8) == 26); // nx=8, x=7, y=2
+        assert(noMurE(7, 1, 8) == 17); // y=1
+        assert(noMurE(7, 0, 8) == 8); // y=0
+
+        assert(noMurE(2, 3, 5) == 21); // nx=5, y=3, x=2
+        assert(noMurE(1, 3, 5) == 20); // x=1
+        assert(noMurE(0, 3, 5) == 19); // x=0
+
+        assert(noMurE(0, 0, 4) == 1); // première coordonnée
+        assert(noMurE(3, 3, 4) == 19); // dernière coordonnée (nx=4)
+    };
+
+    var testNoMurO = function () {
+        assert(noMurO(7, 2, 8) == 25); // nx=8, x=7, y=2
+        assert(noMurO(7, 1, 8) == 16); // y=1
+        assert(noMurO(7, 0, 8) == 7); // y=0
+
+        assert(noMurO(2, 3, 5) == 20); // nx=5, y=3, x=2
+        assert(noMurO(1, 3, 5) == 19); // x=1
+        assert(noMurO(0, 3, 5) == 18); // x=0
+
+        assert(noMurO(0, 0, 4) == 0); // première coordonnée
+        assert(noMurO(3, 3, 4) == 18); // dernière coordonnée (nx=4)
+    };
+
+    var testObtenirDirectionNormalisee = function () {
+        // todo
+    }
+
+    var testMurDevantExiste = function () {
+        // todo
+    }
+
+    var testMurDroitExiste = function () {
+        // todo
+    }
+
+    var testTournerGauche = function () {
+        // todo
+    }
+
+    var testTournerDroit = function () {
+        // todo
+    }
+
+    var testAvancerDevant = function () {
+        // todo
+    }
+
+    var testLongerMur = function () {
+        // todo
+    }
+
+    var testRefermerEntreeLaby = function () {
+        // todo
+    }
+
+    var testSortirLaby = function () {
+        // todo
+    }
+
+    var testGenererEtDessinerLaby = function () {
+        // todo
+    }
+
+    var testGenererEtDessinerSol = function () {
+        // todo
+    }
+
+    testIota();
+    testContientIndex();
+    testContient();
+    testAjouter();
+    testRetirer();
+    testXy2no();
+    testNo2x();
+    testNo2y();
+    testVoisins();
+    testDessinerMurV();
+    testDessinerMurH();
+    testDessinerMurs();
+    testCreerMurs();
+    testCreerCave();
+    testCreerFront();
+    testObtenirNouvCavite();
+    testRetirerMursHorEntreeSortie();
+    testRetirerMur();
+    testObtenirVoisins();
+    testAjouterCavite();
+    testObtenirNouvFront();
+    testNoMurN();
+    testNoMurS();
+    testNoMurE();
+    testNoMurO();
+    testObtenirDirectionNormalisee();
+    testMurDevantExiste();
+    testMurDroitExiste();
+    testTournerGauche();
+    testTournerDroit();
+    testAvancerDevant();
+    testLongerMur();
+    testRefermerEntreeLaby();
+    testSortirLaby();
+    testGenererEtDessinerLaby();
+    testGenererEtDessinerSol();
+}
+
+testerFonctions();
+
 //laby(8, 4, 40);
 //laby(10, 9, 20);
 labySol(10, 9, 20);
