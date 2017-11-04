@@ -569,7 +569,7 @@ var refermerEntreeLaby = function (murs) {
     return {h: ajouter(murs.h, 0), v: murs.v}; // on recrée le mur horizontal 0 afin de fermer l'entrée du labyrinthe, ceci est pour s'assurer que l'algorithme de Pledge sorte bien par la sortie du labyrinthe
 };
 
-var EntrerDansLaby = function (nx, ny, pas, distance) {
+var entrerDansLaby = function (nx, ny, pas, distance) {
 
     // positionner le crayon juste au dessus de l'entrée du labyrinthe et l'orienter vers l'intérieur du labyrinthe
     var xCrayon = -nx / 2 * pas; // coordonée x du coin supérieur gauche du labyrinthe (donc de l'entrée)
@@ -646,7 +646,7 @@ var genererEtDessinerSol = function (nx, ny, pas, mursLaby) {
 
     var distance = 1/4; // le tracer du labyrinthe sera à une distance de 1/4 de pas du mur
     var murs = refermerEntreeLaby(mursLaby); // on recrée le mur horizontal 0 afin de fermer l'entrée du labyrinthe, ceci est pour s'assurer que l'algorithme de Pledge sorte bien par la sortie du labyrinthe
-    var gps = EntrerDansLaby(nx, ny, pas, distance); // on entre dans le labyrinthe
+    var gps = entrerDansLaby(nx, ny, pas, distance); // on entre dans le labyrinthe
     sortirLaby(nx, ny, pas, distance, murs, gps.position, gps.direction); // on navigue le labyrinthe jusqu'à la sortie
 
 };
