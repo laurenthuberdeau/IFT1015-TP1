@@ -339,7 +339,7 @@ var noMurO = function (x, y, nx) {
     return (x + y * (nx + 1));
 };
 
-// Retoure la direction normalisée
+// Retourne la direction normalisée
 // 0: sud
 // 1: est
 // 2: nord
@@ -707,12 +707,26 @@ var testerFonctions = function() {
 
     // Tests unitaires pour la fonction retirerMursHorEntreeSortie
     var testRetirerMursHorEntreeSortie = function () {
+        var murs1 = {h:[1,2,3,4,5], v:[1,2,3,4,5]};
+        assert(retirerMursHorEntreeSortie(murs1).h == "2,3,4");
+        assert(retirerMursHorEntreeSortie(murs1).v == "1,2,3,4,5");
 
+        var murs2 = {h:[], v:[1,2,3,4,5]};
+        assert(retirerMursHorEntreeSortie(murs2).h == "");
+        assert(retirerMursHorEntreeSortie(murs2).v == "1,2,3,4,5");
+
+        var murs3 = {h:[1], v:[1,2,3,4,5]};
+        assert(retirerMursHorEntreeSortie(murs3).h == "");
+        assert(retirerMursHorEntreeSortie(murs3).v == "1,2,3,4,5");
+
+        var murs4 = {h:[1,2], v:[]};
+        assert(retirerMursHorEntreeSortie(murs4).h == "");
+        assert(retirerMursHorEntreeSortie(murs4).v == "");
     };
 
     // Tests unitaires pour la fonction retirerMur
     var testRetirerMur = function () {
-        // TODO
+        // Aléatoire, donc impossible à tester
     };
 
     // Tests unitaires pour la fonction obtenirVoisins
@@ -730,6 +744,12 @@ var testerFonctions = function() {
         // TODO
     };
 
+    // Tests unitaires pour la fonction genererLaby
+    var testGenererLaby = function () {
+        // Aléatoire, donc impossible à tester
+    };
+
+    // Tests unitaires pour la fonction noMurN
     var testNoMurN = function () {
         assert(noMurN(7, 2, 8) == 23); // nx=8, x=7, y=2
         assert(noMurN(7, 1, 8) == 15); // y=1
@@ -743,6 +763,7 @@ var testerFonctions = function() {
         assert(noMurN(3, 3, 4) == 15); // dernière coordonnée (nx=4)
     };
 
+    // Tests unitaires pour la fonction noMurS
     var testNoMurS = function () {
         assert(noMurS(7, 2, 8) == 31); // nx=8, x=7, y=2
         assert(noMurS(7, 1, 8) == 23); // y=1
@@ -756,6 +777,7 @@ var testerFonctions = function() {
         assert(noMurS(3, 3, 4) == 19); // dernière coordonnée (nx=4)
     };
 
+    // Tests unitaires pour la fonction noMurE
     var testNoMurE = function () {
         assert(noMurE(7, 2, 8) == 26); // nx=8, x=7, y=2
         assert(noMurE(7, 1, 8) == 17); // y=1
@@ -769,6 +791,7 @@ var testerFonctions = function() {
         assert(noMurE(3, 3, 4) == 19); // dernière coordonnée (nx=4)
     };
 
+    // Tests unitaires pour la fonction noMurO
     var testNoMurO = function () {
         assert(noMurO(7, 2, 8) == 25); // nx=8, x=7, y=2
         assert(noMurO(7, 1, 8) == 16); // y=1
@@ -782,48 +805,90 @@ var testerFonctions = function() {
         assert(noMurO(3, 3, 4) == 18); // dernière coordonnée (nx=4)
     };
 
+    // Tests unitaires pour la fonction obtenirDirectionNormalisee
     var testObtenirDirectionNormalisee = function () {
-        // todo
+        assert(obtenirDirectionNormalisee(-4) == 0);
+        assert(obtenirDirectionNormalisee(-3) == 1);
+        assert(obtenirDirectionNormalisee(-2) == 2);
+        assert(obtenirDirectionNormalisee(-1) == 3);
+        assert(obtenirDirectionNormalisee(0) == 0);
+        assert(obtenirDirectionNormalisee(1) == 1);
+        assert(obtenirDirectionNormalisee(2) == 2);
+        assert(obtenirDirectionNormalisee(3) == 3);
+        assert(obtenirDirectionNormalisee(4) == 0);
+        assert(obtenirDirectionNormalisee(5) == 1);
+        assert(obtenirDirectionNormalisee(6) == 2);
+        assert(obtenirDirectionNormalisee(7) == 3);
+        assert(obtenirDirectionNormalisee(8) == 0);
     };
 
+    // Tests unitaires pour la fonction murDevantExiste
     var testMurDevantExiste = function () {
-        // todo
+
     };
 
+    // Tests unitaires pour la fonction murDroitExiste
     var testMurDroitExiste = function () {
-        // todo
+
     };
 
+    // Tests unitaires pour la fonction tournerGauche
     var testTournerGauche = function () {
-        // todo
+        // Dessine, donc seulement tester que la direction est valide
+        assert(tournerGauche(0) == 1);
+        assert(tournerGauche(1) == 2);
+        assert(tournerGauche(2) == 3);
+        assert(tournerGauche(3) == 4);
+        assert(tournerGauche(4) == 5);
     };
 
+    // Tests unitaires pour la fonction tournerDroit
     var testTournerDroit = function () {
-        // todo
+        // Dessine, donc seulement tester que la direction est valide
+        assert(tournerDroite(0) == -1);
+        assert(tournerDroite(1) == 0);
+        assert(tournerDroite(2) == 1);
+        assert(tournerDroite(3) == 2);
+        assert(tournerDroite(4) == 3);
     };
 
+    // Tests unitaires pour la fonction avancerDevant
     var testAvancerDevant = function () {
-        // todo
+        // Dessine, donc à ne pas tester
     };
 
+    // Tests unitaires pour la fonction longerMur
     var testLongerMur = function () {
-        // todo
+        // Dessine, donc à ne pas tester
     };
 
+    // Tests unitaires pour la fonction refermerEntreeLaby
     var testRefermerEntreeLaby = function () {
-        // todo
+        var murs1 = {h:[1,2,3,4,5], v:[1,2,3,4,5]};
+        assert(refermerEntreeLaby(murs1).h == "1,2,3,4,5,0");
+        assert(refermerEntreeLaby(murs1).v == "1,2,3,4,5");
+
+        var murs2 = {h:[], v:[1,2,3,4,5]};
+        assert(refermerEntreeLaby(murs2).h == "0");
+        assert(refermerEntreeLaby(murs2).v == "1,2,3,4,5");
+
+        var murs3 = {h:[1], v:[1,2,3,4,5]};
+        assert(refermerEntreeLaby(murs3).h == "1,0");
+        assert(refermerEntreeLaby(murs3).v == "1,2,3,4,5");
+
+        var murs4 = {h:[1,2], v:[]};
+        assert(refermerEntreeLaby(murs4).h == "1,2,0");
+        assert(refermerEntreeLaby(murs4).v == "");
     };
 
+    // Tests unitaires pour la fonction sortieLaby
     var testSortirLaby = function () {
-        // todo
+        // Dessine, donc à ne pas tester
     };
 
-    var testGenererLaby = function () {
-        // todo
-    };
-
+    // Tests unitaires pour la fonction resoudreLaby
     var testResoudreLaby = function () {
-        // todo
+        // Dessine, donc à ne pas tester
     };
 
     testIota();
