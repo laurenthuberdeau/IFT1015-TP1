@@ -319,26 +319,38 @@ var genererLaby = function (nx, ny, pas) {
 // Laby - Résolution labyrinthe
 ////////////////////////////////////////////////////////////////////////////////
 
+// Numéro du mur Nord de la cellule (x,y)
 var noMurN = function (x, y, nx) {
     return (x + y * nx);
 };
 
+// Numéro du mur Sud de la cellule (x,y)
 var noMurS = function (x, y, nx) {
     return (x + (y + 1) * nx);
 };
 
+// Numéro du mur Est de la cellule (x,y)
 var noMurE = function (x, y, nx) {
     return (1 + x + y * (nx + 1));
 };
 
+// Numéro du mur Ouest de la cellule (x,y)
 var noMurO = function (x, y, nx) {
     return (x + y * (nx + 1));
 };
 
+// Retoure la direction normalisée
+// 0: sud
+// 1: est
+// 2: nord
+// 3: ouest
 var obtenirDirectionNormalisee = function (direction) {
-    return (4 + (direction % 4)) % 4; // retoure la direction normalisée soit 0 pour sud, 1 pour est, 2 pour nord et 3 pour ouest
+    // On s'assure d'aller chercher le restant (rem) et non le modulo (mod).
+    // forall x < 0: rem(x) /= mod(x)
+    return (4 + (direction % 4)) % 4;
 };
 
+// Vérifie si un mur est devant la position en la direction donnée
 var murDevantExiste = function (position, direction, nx, murs) {
     var noMur = [noMurS, noMurE, noMurN, noMurO];
     var idx = obtenirDirectionNormalisee(direction);
@@ -346,6 +358,7 @@ var murDevantExiste = function (position, direction, nx, murs) {
     return contient(mursContient, noMur[idx](position.x, position.y, nx));
 };
 
+// Vérifie si un mur est à droite de la position en la direction donnée
 var murDroitExiste = function (position, direction, nx, murs) {
     var noMur = [noMurO, noMurS, noMurE, noMurN];
     var idx = obtenirDirectionNormalisee(direction);
@@ -353,16 +366,19 @@ var murDroitExiste = function (position, direction, nx, murs) {
     return contient(mursContient, noMur[idx](position.x, position.y, nx));
 };
 
+// Rotate vers la gauche la tortue et la position
 var tournerGauche = function (direction) {
     lt(90);
     return direction + 1;
 };
 
+// Rotate vers la droite la tortue et la position
 var tournerDroite = function (direction) {
     rt(90);
     return direction - 1;
 };
 
+// Avance jusqu'à rencontrer un mur
 var avancerDevant = function (position, direction, distance, pas) {
     fd(2 * distance * pas); // on va à la cellule devant
     var nouvPosition = {x: position.x, y: position.y};
@@ -382,14 +398,18 @@ var avancerDevant = function (position, direction, distance, pas) {
     return nouvPosition; // on retourne la nouvelle position
 };
 
+// Longe le mur jusqu'au bout de la cellule
 var longerMur = function (distance, pas) {
-    fd((1 - 2 * distance) * pas); // on longe le mur jusqu'au bout de la cellule
+    fd((1 - 2 * distance) * pas);
 };
 
+// Recrée le mur horizontal 0 afin de fermer l'entrée du labyrinthe.
+// Ceci est pour s'assurer que l'algorithme de Pledge sorte bien par la sortie du labyrinthe
 var refermerEntreeLaby = function (murs) {
-    return {h: ajouter(murs.h, 0), v: murs.v}; // on recrée le mur horizontal 0 afin de fermer l'entrée du labyrinthe, ceci est pour s'assurer que l'algorithme de Pledge sorte bien par la sortie du labyrinthe
+    return {h: ajouter(murs.h, 0), v: murs.v};
 };
 
+// Entre dans la première cellule du labyrinthe, l'entrée.
 var entrerDansLaby = function (nx, ny, pas, distance) {
 
     // positionner le crayon juste au dessus de l'entrée du labyrinthe et l'orienter vers l'intérieur du labyrinthe
@@ -411,6 +431,7 @@ var entrerDansLaby = function (nx, ny, pas, distance) {
 
 };
 
+// Résoud le labyrinthe graphiquement une fois l'entrée fermée
 var sortirLaby = function (nx, ny, pas, distance, murs, position, direction) {
 
     while (true) {
@@ -423,13 +444,13 @@ var sortirLaby = function (nx, ny, pas, distance, murs, position, direction) {
                 // fin de la boucle puisqu'on vient de sortir du labyrinthe
                 break;
             }
-            if (direction != 0 && !murDroitExiste(position, direction, nx, murs)) { // si direction <> 0 et pas de mur à notre droite
+            if (direction != 0 && !murDroitExiste(position, direction, nx, murs)) { // si direction != 0 et pas de mur à notre droite
                 direction = tournerDroite(direction); // on tourne à droite
                 position = avancerDevant(position, direction, distance, pas); // on avance à la cellule devant
                 if (position.x == nx - 1 && position.y == ny) { // fin de la boucle puisqu'on vient de sortir du labyrinthe
                     break;
                 }
-                if (direction != 0 && !murDroitExiste(position, direction, nx, murs)) { // si direction <> 0 et pas de mur à notre doirte
+                if (direction != 0 && !murDroitExiste(position, direction, nx, murs)) { // si direction <> 0 et pas de mur à notre droite
                     direction = tournerDroite(direction); // on tourne à droite
                     position = avancerDevant(position, direction, distance, pas); // on avance à la cellule devant
                     if (position.x == nx - 1 && position.y == ny) { // fin de la boucle puisqu'on vient de sortir du labyrinthe
@@ -442,6 +463,7 @@ var sortirLaby = function (nx, ny, pas, distance, murs, position, direction) {
     }
 };
 
+// Résoud un labyrinthe en s'assurant de fermer l'entrée du labyrinthe
 var resoudreLaby = function (nx, ny, pas, mursLaby) {
 
     var distance = 1/4; // le tracer du labyrinthe sera à une distance de 1/4 de pas du mur
