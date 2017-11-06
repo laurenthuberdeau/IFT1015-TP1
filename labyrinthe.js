@@ -462,18 +462,18 @@ var sortirLaby = function (nx, ny, pas, distance, murs, position, direction) {
                 }
             }
         }
+
         longerMur(distance, pas); // on longe le mur (qui pourrait être fictif si direction = 0) sans changer de cellule
     }
 };
 
 // Résoud un labyrinthe en s'assurant de fermer l'entrée du labyrinthe
 var resoudreLaby = function (nx, ny, pas, mursLaby) {
-
     var distance = 1/4; // le tracer du labyrinthe sera à une distance de 1/4 de pas du mur
+
     var murs = refermerEntreeLaby(mursLaby); // on recrée le mur horizontal 0 afin de fermer l'entrée du labyrinthe, ceci est pour s'assurer que l'algorithme de Pledge sorte bien par la sortie du labyrinthe
     var gps = entrerDansLaby(nx, ny, pas, distance); // on entre dans le labyrinthe
     sortirLaby(nx, ny, pas, distance, murs, gps.position, gps.direction); // on navigue le labyrinthe jusqu'à la sortie
-
 };
 
 
@@ -973,7 +973,4 @@ var testerFonctions = function() {
 testerFonctions();
 cs();
 
-//laby(8, 4, 40);
-//laby(10, 9, 20);
-labySol(10, 9, 20);
-//laby(6, 6, 36);
+labySol(10,9,20);
