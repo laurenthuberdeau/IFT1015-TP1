@@ -731,17 +731,37 @@ var testerFonctions = function() {
 
     // Tests unitaires pour la fonction obtenirVoisins
     var testObtenirVoisins = function () {
-        // TODO
+        var returnedObject;
+        returnedObject = obtenirVoisins(11, 8, 4, [12,20,21]);
+        assert(returnedObject.cavite == 12 && returnedObject.front == "3,10,19"); // 1 voisin dans la cavité et 3 qui n'y sont pas
+        returnedObject = obtenirVoisins(13, 8, 4, [12,20,21]);
+        assert((returnedObject.cavite == 12 || returnedObject.cavite == 21) && returnedObject.front == "5,14"); // 2 voisins dans la cavité (donc 1 des 2 sera choisi aléatoirement) et 2 qui n'y sont pas
+        returnedObject = obtenirVoisins(7, 8, 4, [6]);
+        assert(returnedObject.cavite == 6 && returnedObject.front == "15"); // 1 voisin dans la cavité et 1 qui n'y est pas
+        returnedObject = obtenirVoisins(7, 8, 4, [6,15]);
+        assert((returnedObject.cavite == 6 || returnedObject.cavite == 15) && returnedObject.front == ""); // // 2 voisins dans la cavité (donc 1 des 2 sera choisi aléatoirement) et aucun qui n'y est pas
+        returnedObject = obtenirVoisins(18, 8, 4, [19,20,28,29,30,31,23]);
+        assert(returnedObject.cavite == 19 && returnedObject.front == "10,17,26"); // // 1 voisin dans la cavité et 3 qui n'y sont pas
     };
 
     // Tests unitaires pour la fonction ajouterCavite
     var testAjouterCavite = function () {
-        // TODO
+        assert(ajouterCavite([9,2,5],6) == "9,2,5,6"); // test - ajouter
+        assert(ajouterCavite([9,2,5],9) == "9,2,5"); // test - déjà dans la liste - premier
+        assert(ajouterCavite([9,2,5],5) == "9,2,5"); // test - déjà dans la liste - dernier
+        assert(ajouterCavite([9,2,5],2) == "9,2,5"); // test - déjà dans la liste - !premier && !dernier
+        assert(ajouterCavite([3],7) == "3,7"); // test liste 1 élement - ajouter
+        assert(ajouterCavite([3],3) == "3"); // test liste 1 élement - déjà dans la liste
+        assert(ajouterCavite([],8) == "8"); // test liste vide
     };
-
     // Tests unitaires pour la fonction obtenirNouvFront
     var testObtenirNouvFront = function () {
-        // TODO
+        assert(obtenirNouvFront([9,2,5],2,[4,6]) == "9,5,4,6"); // retirer une valeur et en ajouter 2 autres
+        assert(obtenirNouvFront([9,2,5],0,[8,4]) == "9,2,5,8,4"); // retirer une valeur qui n'existe pas et en ajouter 2 autres
+        assert(obtenirNouvFront([9,2,5],9,[]) == "2,5"); // retirer une valeur et ne rien ajouter
+        assert(obtenirNouvFront([9,2,5],7,[]) == "9,2,5"); // retirer une valeur qui n'existe pas et ne rien ajouter
+        assert(obtenirNouvFront([],7,[]) == ""); // retirer une valeur qui n'existe pas et ne rien ajouter
+        assert(obtenirNouvFront([],7,[1,2,3]) == "1,2,3"); // retirer une valeur qui n'existe pas et ne rien ajouter
     };
 
     // Tests unitaires pour la fonction genererLaby
@@ -824,12 +844,38 @@ var testerFonctions = function() {
 
     // Tests unitaires pour la fonction murDevantExiste
     var testMurDevantExiste = function () {
+        assert(murDevantExiste({x: 0, y:0}, 0, 4, {h:[1,2,3,4,6,10,12,13,15,16,17,18], v:[0,2,4,5,8,9,10,11,13,14,15,19]})); // (0,0) sud - mur
+        assert(!murDevantExiste({x: 0, y:0}, 1, 4, {h:[1,2,3,4,6,10,12,13,15,16,17,18], v:[0,2,4,5,8,9,10,11,13,14,15,19]})); // (0,0) est - pas de mur
+        assert(!murDevantExiste({x: 0, y:0}, 2, 4, {h:[1,2,3,4,6,10,12,13,15,16,17,18], v:[0,2,4,5,8,9,10,11,13,14,15,19]})); // (0,0) nord - pas de mur (c'est l'entrée du laby)
+        assert(murDevantExiste({x: 0, y:0}, 3, 4, {h:[1,2,3,4,6,10,12,13,15,16,17,18], v:[0,2,4,5,8,9,10,11,13,14,15,19]})); // (0,0) ouest- mur (mur délimitant le laby)
 
+        assert(murDevantExiste({x: 2, y:1}, 0, 4, {h:[1,2,3,4,6,10,12,13,15,16,17,18], v:[0,2,4,5,8,9,10,11,13,14,15,19]})); // (2,1) sud - mur
+        assert(murDevantExiste({x: 2, y:1}, 1, 4, {h:[1,2,3,4,6,10,12,13,15,16,17,18], v:[0,2,4,5,8,9,10,11,13,14,15,19]})); // (2,1) est - mur
+        assert(murDevantExiste({x: 2, y:1}, 2, 4, {h:[1,2,3,4,6,10,12,13,15,16,17,18], v:[0,2,4,5,8,9,10,11,13,14,15,19]})); // (2,1) nord - mur
+        assert(!murDevantExiste({x: 2, y:1}, 3, 4, {h:[1,2,3,4,6,10,12,13,15,16,17,18], v:[0,2,4,5,8,9,10,11,13,14,15,19]})); // (2,1) ouest- pas de mur
+
+        assert(!murDevantExiste({x: 3, y:3}, 0, 4, {h:[1,2,3,4,6,10,12,13,15,16,17,18], v:[0,2,4,5,8,9,10,11,13,14,15,19]})); // (2,1) sud - pas de mur (c'est la sortie du laby)
+        assert(murDevantExiste({x: 3, y:3}, 1, 4, {h:[1,2,3,4,6,10,12,13,15,16,17,18], v:[0,2,4,5,8,9,10,11,13,14,15,19]})); // (2,1) est - mur (mur délimitant le laby)
+        assert(murDevantExiste({x: 3, y:3}, 2, 4, {h:[1,2,3,4,6,10,12,13,15,16,17,18], v:[0,2,4,5,8,9,10,11,13,14,15,19]})); // (2,1) nord - mur
+        assert(!murDevantExiste({x: 3, y:3}, 3, 4, {h:[1,2,3,4,6,10,12,13,15,16,17,18], v:[0,2,4,5,8,9,10,11,13,14,15,19]})); // (2,1) ouest- pas de mur
     };
 
     // Tests unitaires pour la fonction murDroitExiste
     var testMurDroitExiste = function () {
+        assert(murDroitExiste({x: 0, y:0}, 0, 4, {h:[1,2,3,4,6,10,12,13,15,16,17,18], v:[0,2,4,5,8,9,10,11,13,14,15,19]})); // (0,0) sud - mur (mur délimitant le laby)
+        assert(murDroitExiste({x: 0, y:0}, 1, 4, {h:[1,2,3,4,6,10,12,13,15,16,17,18], v:[0,2,4,5,8,9,10,11,13,14,15,19]})); // (0,0) est - mur
+        assert(!murDroitExiste({x: 0, y:0}, 2, 4, {h:[1,2,3,4,6,10,12,13,15,16,17,18], v:[0,2,4,5,8,9,10,11,13,14,15,19]})); // (0,0) nord - pas de mur
+        assert(!murDroitExiste({x: 0, y:0}, 3, 4, {h:[1,2,3,4,6,10,12,13,15,16,17,18], v:[0,2,4,5,8,9,10,11,13,14,15,19]})); // (0,0) ouest- pas de mur (c'est l'entrée du laby)
 
+        assert(!murDroitExiste({x: 2, y:1}, 0, 4, {h:[1,2,3,4,6,10,12,13,15,16,17,18], v:[0,2,4,5,8,9,10,11,13,14,15,19]})); // (2,1) sud - pas de mur
+        assert(murDroitExiste({x: 2, y:1}, 1, 4, {h:[1,2,3,4,6,10,12,13,15,16,17,18], v:[0,2,4,5,8,9,10,11,13,14,15,19]})); // (2,1) est - mur
+        assert(murDroitExiste({x: 2, y:1}, 2, 4, {h:[1,2,3,4,6,10,12,13,15,16,17,18], v:[0,2,4,5,8,9,10,11,13,14,15,19]})); // (2,1) nord - mur
+        assert(murDroitExiste({x: 2, y:1}, 3, 4, {h:[1,2,3,4,6,10,12,13,15,16,17,18], v:[0,2,4,5,8,9,10,11,13,14,15,19]})); // (2,1) ouest- mur
+
+        assert(!murDroitExiste({x: 3, y:3}, 0, 4, {h:[1,2,3,4,6,10,12,13,15,16,17,18], v:[0,2,4,5,8,9,10,11,13,14,15,19]})); // (2,1) sud - pas de mur
+        assert(!murDroitExiste({x: 3, y:3}, 1, 4, {h:[1,2,3,4,6,10,12,13,15,16,17,18], v:[0,2,4,5,8,9,10,11,13,14,15,19]})); // (2,1) est - pas de mur (c'est la sortie du laby)
+        assert(murDroitExiste({x: 3, y:3}, 2, 4, {h:[1,2,3,4,6,10,12,13,15,16,17,18], v:[0,2,4,5,8,9,10,11,13,14,15,19]})); // (2,1) nord - mur (mur délimitant le laby)
+        assert(murDroitExiste({x: 3, y:3}, 3, 4, {h:[1,2,3,4,6,10,12,13,15,16,17,18], v:[0,2,4,5,8,9,10,11,13,14,15,19]})); // (2,1) ouest- mur
     };
 
     // Tests unitaires pour la fonction tournerGauche
