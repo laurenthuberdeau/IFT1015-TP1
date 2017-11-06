@@ -834,22 +834,12 @@ var testerFonctions = function() {
 
     // Tests unitaires pour la fonction tournerGauche
     var testTournerGauche = function () {
-        // Dessine, donc seulement tester que la direction est valide
-        assert(tournerGauche(0) == 1);
-        assert(tournerGauche(1) == 2);
-        assert(tournerGauche(2) == 3);
-        assert(tournerGauche(3) == 4);
-        assert(tournerGauche(4) == 5);
+        // Dessine, donc ne pas tester
     };
 
     // Tests unitaires pour la fonction tournerDroit
     var testTournerDroit = function () {
-        // Dessine, donc seulement tester que la direction est valide
-        assert(tournerDroite(0) == -1);
-        assert(tournerDroite(1) == 0);
-        assert(tournerDroite(2) == 1);
-        assert(tournerDroite(3) == 2);
-        assert(tournerDroite(4) == 3);
+        // Dessine, donc ne pas tester
     };
 
     // Tests unitaires pour la fonction avancerDevant
