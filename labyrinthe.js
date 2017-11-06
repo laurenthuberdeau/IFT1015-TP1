@@ -1,11 +1,14 @@
-
 // Nom du programme: labyrinthe.js
 // Auteurs: Laurent Huberdeau (p1171029) & Mario Dubreuil (p0152501)
-// Date de création: 2017-OCT-21
-// Description:
-// ...
+// Date de création: 2017-NOV-5
 
-// TODO: Modifier les fonctions ASSERT sur les tableaux pour valider que le tableau passé en paramètre n'a pas été modifié par la fonction
+////////////////////////////////////////////////////////////////////////////////
+// Description
+////////////////////////////////////////////////////////////////////////////////
+// Ce programme génère un labyrinthe avec la fonction laby d'une
+// certaine largeur et hauteur avec des cellules d'une grandeur donnée.
+// La fonction labySol génère un labyrinthe et le résoud graphiquement.
+////////////////////////////////////////////////////////////////////////////////
 
 
 ////////////////////////////////////////////////////////////////////////////////
