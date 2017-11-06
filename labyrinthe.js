@@ -930,6 +930,7 @@ var testerFonctions = function() {
 };
 
 testerFonctions();
+cs();
 
 //laby(8, 4, 40);
 //laby(10, 9, 20);
