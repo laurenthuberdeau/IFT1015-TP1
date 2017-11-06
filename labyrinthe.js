@@ -487,6 +487,7 @@ var resoudreLaby = function (nx, ny, pas, mursLaby) {
 // "ny" est un nombre entier > 0 et représente la hauteur du labyrinthe
 // "pas" est un nombre entier > 0 et représente la largeur et la hauteur (en pixel) de chacune des cellules carées du labyrinthe
 var laby = function (nx, ny, pas) {
+    cs(); // On réinitialise le crayon
     var mursLaby = genererLaby(nx, ny, pas); // génère un labyrinthe
     dessinerMurs(mursLaby, pas, nx, ny); // dessine le labyrinthe
 };
@@ -497,6 +498,7 @@ var laby = function (nx, ny, pas) {
 // "ny" est un nombre entier > 0 et représente la hauteur du labyrinthe
 // "pas" est un nombre entier > 0 et représente la largeur et la hauteur (en pixel) de chacune des cellules carées du labyrinthe
 var labySol = function (nx, ny, pas) {
+    cs(); // On réinitialise le crayon
     var mursLaby = genererLaby(nx, ny, pas); // génère un labyrinthe
     dessinerMurs(mursLaby, pas, nx, ny); // dessine le labyrinthe
     resoudreLaby(nx, ny, pas, mursLaby); // Résoud et dessine le labyrinthe et la solution
